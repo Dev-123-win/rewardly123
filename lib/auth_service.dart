@@ -5,7 +5,7 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // Register with email and password
-  Future<User?> registerWithEmailAndPassword(String email, String password, {String? referralCode}) async {
+  Future<dynamic> registerWithEmailAndPassword(String email, String password, {String? referralCode}) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       User? user = result.user;
@@ -13,21 +13,19 @@ class AuthService {
         await UserService().createUserData(user.uid, email, referralCode: referralCode);
       }
       return user;
-    } catch (e) {
-      // print(e.toString()); // Avoid print in production code
-      return null;
+    } on FirebaseAuthException catch (e) {
+      return e.message;
     }
   }
 
   // Sign in with email and password
-  Future<User?> signInWithEmailAndPassword(String email, String password) async {
+  Future<dynamic> signInWithEmailAndPassword(String email, String password) async {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password);
       User? user = result.user;
       return user;
-    } catch (e) {
-      // print(e.toString()); // Avoid print in production code
-      return null;
+    } on FirebaseAuthException catch (e) {
+      return e.message;
     }
   }
 

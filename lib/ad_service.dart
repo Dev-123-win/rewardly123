@@ -1,14 +1,15 @@
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-// import 'package:flutter/material.dart'; // Unused import
-
 class AdService {
   RewardedAd? _rewardedAd;
   int _numRewardedLoadAttempts = 0;
   final int maxFailedLoadAttempts = 3;
 
+  // Ad Unit IDs
+  final String _rewardedAdUnitId = 'ca-app-pub-3863562453957252/781943874';
+
   void loadRewardedAd() {
     RewardedAd.load(
-      adUnitId: 'ca-app-pub-3940256099942544/5224354917', // Android Test Ad Unit ID. Replace with your actual Ad Unit ID
+      adUnitId: _rewardedAdUnitId,
       request: const AdRequest(),
       rewardedAdLoadCallback: RewardedAdLoadCallback(
         onAdLoaded: (RewardedAd ad) {

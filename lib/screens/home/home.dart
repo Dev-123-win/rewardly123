@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 import 'package:rewardly_app/auth_service.dart';
-import 'package:rewardly_app/ad_service.dart';
 import 'package:rewardly_app/remote_config_service.dart';
 import 'package:rewardly_app/user_service.dart';
-import 'package:rewardly_app/shared/loading.dart';
-import 'package:rewardly_app/widgets/custom_button.dart';
+import 'package:rewardly_app/shared/shimmer_loading.dart';
+import 'package:rewardly_app/providers/user_data_provider.dart';
 import 'package:rewardly_app/screens/home/admin_panel.dart';
+import 'package:rewardly_app/screens/home/earn_coins_screen.dart';
+import 'package:rewardly_app/screens/home/referral_screen.dart';
+import 'package:rewardly_app/screens/home/profile_screen.dart';
+import 'package:rewardly_app/screens/home/withdraw_screen.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -19,42 +21,64 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final AuthService _auth = AuthService();
-  final AdService _adService = AdService();
-  final UserService _userService = UserService();
   final RemoteConfigService _remoteConfigService = RemoteConfigService();
 
+  int _selectedIndex = 0;
   bool _isAdmin = false;
-  int _coins = 0;
-  int _adsWatchedToday = 0;
-  int _dailyAdLimit = 0;
-  int _coinsPerAd = 0;
 
   @override
   void initState() {
     super.initState();
-    _adService.loadRewardedAd();
+    _checkAdminStatus();
   }
 
-  void _showRewardedAd() {
+  Future<void> _checkAdminStatus() async {
     final user = Provider.of<User?>(context, listen: false);
-    if (user == null) return;
+    final userDataProvider = Provider.of<UserDataProvider>(context, listen: false);
 
-    if (_adsWatchedToday >= _dailyAdLimit) {
-      _showSnackBar('Daily ad limit reached. Try again tomorrow!');
-      return;
+    if (user != null) {
+      bool admin = false;
+      if (userDataProvider.userData != null) {
+        admin = userDataProvider.userData!['isAdmin'] ?? false;
+      } else {
+        // Fallback to direct service call if provider data is not yet available
+        admin = await UserService().isAdmin(user.uid);
+      }
+      setState(() {
+        _isAdmin = admin;
+      });
     }
-
-    _adService.showRewardedAd((ad, reward) async {
-      await _userService.updateCoins(user.uid, _coinsPerAd);
-      await _userService.updateAdsWatchedToday(user.uid);
-      _showSnackBar('You earned $_coinsPerAd coins!');
-    });
   }
 
-  void _showSnackBar(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message)),
-    );
+  List<Widget> _buildScreens() {
+    return [
+      // EarnCoinsScreen is now accessed via a shortcut card on the main home body
+      const ReferralScreen(),
+      const ProfileScreen(),
+      if (_isAdmin) const AdminPanel(),
+    ];
+  }
+
+  List<BottomNavigationBarItem> _buildNavBarItems() {
+    List<BottomNavigationBarItem> items = [
+      const BottomNavigationBarItem(
+        icon: Icon(Icons.share),
+        label: 'Referral',
+      ),
+      const BottomNavigationBarItem(
+        icon: Icon(Icons.person),
+        label: 'Profile',
+      ),
+    ];
+    if (_isAdmin) {
+      items.add(
+        const BottomNavigationBarItem(
+          icon: Icon(Icons.admin_panel_settings),
+          label: 'Admin',
+        ),
+      );
+    }
+    return items;
   }
 
   @override
@@ -62,107 +86,212 @@ class _HomeState extends State<Home> {
     final user = Provider.of<User?>(context);
 
     if (user == null) {
-      return const Loading(); // Should not happen if Wrapper is working correctly
+      return const HomeScreenLoading();
     }
 
-    return StreamBuilder<DocumentSnapshot>(
-      stream: _userService.getUserData(user.uid),
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        }
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Loading();
-        }
-
-        if (!snapshot.hasData || !snapshot.data!.exists) {
-          return const Text('User data not found.');
-        }
-
-        Map<String, dynamic> userData = snapshot.data!.data() as Map<String, dynamic>;
-        _coins = userData['coins'] ?? 0;
-        _adsWatchedToday = userData['adsWatchedToday'] ?? 0;
-        _isAdmin = userData['isAdmin'] ?? false;
-        _dailyAdLimit = _remoteConfigService.dailyAdLimit;
-        _coinsPerAd = _remoteConfigService.coinsPerAd;
-
-        return Scaffold(
-          appBar: AppBar(
-            flexibleSpace: Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Colors.blueAccent, Colors.lightBlueAccent],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-              ),
-            ),
-            title: const Text('Rewardly Home', style: TextStyle(color: Colors.white)),
-            elevation: 0.0,
-            actions: <Widget>[
-              if (_isAdmin)
-                TextButton.icon(
-                  icon: const Icon(Icons.admin_panel_settings, color: Colors.white),
-                  label: const Text('Admin', style: TextStyle(color: Colors.white)),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const AdminPanel()),
-                    );
-                  },
-                ),
-              TextButton.icon(
-                icon: const Icon(Icons.person, color: Colors.white),
-                label: const Text('Logout', style: TextStyle(color: Colors.white)),
-                onPressed: () async {
-                  await _auth.signOut();
-                },
-              )
-            ],
-          ),
-          body: Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.blueAccent, Colors.lightBlueAccent],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-            ),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    'Coins: $_coins',
-                    style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    'Ads Watched Today: $_adsWatchedToday / $_dailyAdLimit',
-                    style: const TextStyle(fontSize: 18, color: Colors.white70),
-                  ),
-                  const SizedBox(height: 40),
-                  CustomButton(
-                    text: 'Watch Ad & Earn Coins',
-                    onPressed: _showRewardedAd,
-                    startColor: Colors.green,
-                    endColor: Colors.lightGreen,
-                  ),
-                  const SizedBox(height: 20),
-                  CustomButton(
-                    text: 'Refer a Friend',
-                    onPressed: () {
-                      _showSnackBar('Your referral code: ${userData['referralCode']}');
-                    },
-                    startColor: Colors.orange,
-                    endColor: Colors.deepOrange,
-                  ),
-                ],
-              ),
+    return Scaffold(
+      appBar: AppBar(
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.blueAccent, Colors.lightBlueAccent],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
             ),
           ),
-        );
-      },
+        ),
+        title: GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ProfileScreen()),
+            );
+          },
+          child: Text(
+            user.email ?? 'Rewardly App',
+            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+          ),
+        ),
+        elevation: 0.0,
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.account_balance_wallet, color: Colors.white),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const WithdrawScreen()),
+              );
+            },
+          ),
+          TextButton.icon(
+            icon: const Icon(Icons.logout, color: Colors.white),
+            label: const Text('Logout', style: TextStyle(color: Colors.white)),
+            onPressed: () async {
+              await _auth.signOut();
+            },
+          )
+        ],
+      ),
+      body: _selectedIndex == 0 // If selected index is 0, show the main home content with shortcut cards
+          ? SingleChildScrollView(
+              child: Container(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Colors.blueAccent, Colors.lightBlueAccent],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                ),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      // Watch & Earn Shortcut Card
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const EarnCoinsScreen()),
+                          );
+                        },
+                        child: Card(
+                          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          elevation: 8.0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          child: Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.all(20.0),
+                            decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                colors: [Colors.green, Colors.lightGreen],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            child: const Column(
+                              children: [
+                                Icon(Icons.play_circle_fill, size: 50, color: Colors.white),
+                                SizedBox(height: 10),
+                                Text(
+                                  'Watch Ads & Earn Coins',
+                                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
+                                ),
+                                SizedBox(height: 5),
+                                Text(
+                                  'Tap to watch rewarded videos and get coins!',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: 14, color: Colors.white70),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      Consumer<UserDataProvider>(
+                        builder: (context, userDataProvider, child) {
+                          if (userDataProvider.userData == null) {
+                            return const Center(
+                              child: Column(
+                                children: [
+                                  ShimmerLoading.rectangular(height: 30, width: 150),
+                                  SizedBox(height: 10),
+                                  ShimmerLoading.rectangular(height: 18, width: 200),
+                                ],
+                              ),
+                            );
+                          }
+                          Map<String, dynamic> userData = userDataProvider.userData!.data() as Map<String, dynamic>;
+                          int coins = userData['coins'] ?? 0;
+                          int adsWatchedToday = userData['adsWatchedToday'] ?? 0;
+                          return Column(
+                            children: [
+                              Text(
+                                'Coins: $coins',
+                                style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                'Ads Watched Today: $adsWatchedToday / ${_remoteConfigService.dailyAdLimit}',
+                                style: const TextStyle(fontSize: 18, color: Colors.white70),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            )
+          : _buildScreens()[_selectedIndex - 1], // Adjust index for screens in bottom nav
+      bottomNavigationBar: BottomNavigationBar(
+        items: _buildNavBarItems(),
+        currentIndex: _selectedIndex == 0 ? 0 : _selectedIndex - 1, // Adjust index for bottom nav
+        selectedItemColor: Colors.blueAccent,
+        unselectedItemColor: Colors.grey[600],
+        backgroundColor: Colors.white,
+        onTap: (index) {
+          setState(() {
+            _selectedIndex = index + 1; // Adjust index for screens in bottom nav
+          });
+        },
+      ),
+    );
+  }
+}
+
+class HomeScreenLoading extends StatelessWidget {
+  const HomeScreenLoading({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.blueAccent, Colors.lightBlueAccent],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
+        title: const ShimmerLoading.rectangular(height: 18, width: 150),
+        actions: <Widget>[
+          const ShimmerLoading.circular(width: 40, height: 40),
+          const SizedBox(width: 10),
+          const ShimmerLoading.rectangular(height: 40, width: 80),
+          const SizedBox(width: 10),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.blueAccent, Colors.lightBlueAccent],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                const ShimmerLoading.rectangular(height: 200, width: double.infinity),
+                const SizedBox(height: 20),
+                const ShimmerLoading.rectangular(height: 30, width: 150),
+                const SizedBox(height: 10),
+                const ShimmerLoading.rectangular(height: 18, width: 200),
+              ],
+            ),
+          ),
+        ),
+      ),
+      bottomNavigationBar: const ShimmerLoading.rectangular(height: 56),
     );
   }
 }

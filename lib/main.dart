@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:rewardly_app/auth_service.dart';
 import 'package:rewardly_app/firebase_options.dart';
+import 'package:rewardly_app/providers/user_data_provider.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:rewardly_app/remote_config_service.dart';
 import 'package:rewardly_app/wrapper.dart';
@@ -23,9 +24,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<User?>.value(
-      value: AuthService().user,
-      initialData: null,
+    return MultiProvider(
+      providers: [
+        StreamProvider<User?>.value(
+          value: AuthService().user,
+          initialData: null,
+        ),
+        ChangeNotifierProvider(
+          create: (context) => UserDataProvider(),
+        ),
+      ],
       child: MaterialApp(
         title: 'Rewardly App',
         theme: ThemeData(

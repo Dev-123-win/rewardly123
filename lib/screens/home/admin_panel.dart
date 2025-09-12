@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rewardly_app/remote_config_service.dart';
-import 'package:rewardly_app/shared/loading.dart';
+import 'package:rewardly_app/shared/shimmer_loading.dart';
+import 'package:provider/provider.dart';
+import 'package:rewardly_app/providers/user_data_provider.dart';
 
 class AdminPanel extends StatefulWidget {
   const AdminPanel({super.key});
@@ -11,7 +13,6 @@ class AdminPanel extends StatefulWidget {
 }
 
 class _AdminPanelState extends State<AdminPanel> {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final RemoteConfigService _remoteConfigService = RemoteConfigService();
 
   int _dailyAdLimit = 0;
@@ -100,37 +101,39 @@ class _AdminPanelState extends State<AdminPanel> {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             Expanded(
-              child: StreamBuilder<QuerySnapshot>(
-                stream: _firestore.collection('users').snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return Text('Error: ${snapshot.error}');
+              child: Consumer<UserDataProvider>(
+                builder: (context, userDataProvider, child) {
+                  if (userDataProvider.userData == null) {
+                    return const _AdminPanelLoading();
                   }
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Loading();
-                  }
-                  return ListView(
-                    children: snapshot.data!.docs.map((DocumentSnapshot document) {
-                      Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-                      return Card(
-                        margin: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: ListTile(
-                          title: Text(data['email'] ?? 'N/A'),
-                          subtitle: Text('Coins: ${data['coins']}, Ads Watched Today: ${data['adsWatchedToday']}'),
-                          trailing: IconButton(
-                            icon: const Icon(Icons.delete),
-                            onPressed: () async {
-                              final currentContext = context;
-                              await _firestore.collection('users').doc(document.id).delete();
-                              if (!currentContext.mounted) return;
-                              ScaffoldMessenger.of(currentContext).showSnackBar(
-                                const SnackBar(content: Text('User deleted!')),
-                              );
-                            },
-                          ),
-                        ),
+                  // Assuming admin panel needs to list all users, not just the current user
+                  // This part still needs a StreamBuilder or a separate provider for all users
+                  return StreamBuilder<QuerySnapshot>(
+                    stream: FirebaseFirestore.instance.collection('users').snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      }
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const _AdminPanelLoading();
+                      }
+                      return ListView(
+                        children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                          Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+                          return Card(
+                            margin: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: ListTile(
+                              title: Text(data['email'] ?? 'N/A'),
+                              subtitle: Text('Coins: ${data['coins']}, Ads Watched Today: ${data['adsWatchedToday']}'),
+                              trailing: IconButton(
+                                icon: const Icon(Icons.delete),
+                                onPressed: () => _confirmDeleteUser(context, document.id, data['email'] ?? 'N/A'),
+                              ),
+                            ),
+                          );
+                        }).toList(),
                       );
-                    }).toList(),
+                    },
                   );
                 },
               ),
@@ -138,6 +141,61 @@ class _AdminPanelState extends State<AdminPanel> {
           ],
         ),
       ),
+    );
+  }
+
+  Future<void> _confirmDeleteUser(BuildContext context, String uid, String email) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // User must tap button!
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: const Text('Confirm Delete'),
+          content: Text('Are you sure you want to delete user "$email"? This action cannot be undone.'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(dialogContext).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(foregroundColor: Colors.red),
+              child: const Text('Delete'),
+              onPressed: () async {
+                Navigator.of(dialogContext).pop(); // Dismiss dialog
+                await FirebaseFirestore.instance.collection('users').doc(uid).delete();
+                if (mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('User "$email" deleted!')),
+                  );
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
+
+class _AdminPanelLoading extends StatelessWidget {
+  const _AdminPanelLoading();
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: 5,
+      itemBuilder: (context, index) {
+        return Card(
+          margin: const EdgeInsets.symmetric(vertical: 8.0),
+          child: ListTile(
+            title: ShimmerLoading.rectangular(height: 16, width: 150),
+            subtitle: ShimmerLoading.rectangular(height: 14, width: 200),
+            trailing: ShimmerLoading.circular(width: 40, height: 40),
+          ),
+        );
+      },
     );
   }
 }

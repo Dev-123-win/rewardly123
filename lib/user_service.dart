@@ -1,19 +1,32 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:firebase_auth/firebase_auth.dart'; // Unused import
 
 class UserService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  // final FirebaseAuth _auth = FirebaseAuth.instance; // Unused field
+
+  static const int _referralBonusCoins = 50; // Define referral bonus
 
   // Create user data on registration
   Future<void> createUserData(String uid, String email, {String? referralCode}) async {
+    int initialCoins = 0;
+    String? actualReferredBy;
+
+    if (referralCode != null && referralCode.isNotEmpty) {
+      final referrerSnapshot = await getUserByReferralCode(referralCode);
+      if (referrerSnapshot != null && referrerSnapshot.exists) {
+        // Valid referral code, give bonus to new user and referrer
+        initialCoins = _referralBonusCoins;
+        actualReferredBy = referralCode;
+        await updateCoins(referrerSnapshot.id, _referralBonusCoins); // Reward referrer
+      }
+    }
+
     await _firestore.collection('users').doc(uid).set({
       'email': email,
-      'coins': 0,
+      'coins': initialCoins,
       'adsWatchedToday': 0,
       'lastAdWatchDate': DateTime.now().toIso8601String().substring(0, 10),
       'referralCode': uid.substring(0, 8), // Simple referral code from UID
-      'referredBy': referralCode,
+      'referredBy': actualReferredBy,
       'isAdmin': false,
     });
   }
