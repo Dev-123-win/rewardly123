@@ -72,32 +72,31 @@ class _EarnCoinsScreenState extends State<EarnCoinsScreen> {
 
     return SingleChildScrollView(
       child: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.blueAccent, Colors.lightBlueAccent],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
+        color: Colors.white, // White background
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
                 'Coins: $_coins',
-                style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor), // Primary color text
               ),
               const SizedBox(height: 10),
               Text(
                 'Ads Watched Today: $_adsWatchedToday / $_dailyAdLimit',
-                style: const TextStyle(fontSize: 18, color: Colors.white70),
+                style: const TextStyle(fontSize: 18, color: Colors.black87), // Darker text
               ),
               const SizedBox(height: 40),
               CustomButton(
                 text: 'Watch Ad & Earn Coins',
                 onPressed: _showRewardedAd,
-                startColor: Colors.green,
-                endColor: Colors.lightGreen,
+                startColor: Theme.of(context).primaryColor, // Primary color
+                endColor: Color.fromARGB(
+                  (((Theme.of(context).primaryColor.value >> 24) & 0xFF) * 0.8).round(),
+                  (Theme.of(context).primaryColor.value >> 16) & 0xFF,
+                  (Theme.of(context).primaryColor.value >> 8) & 0xFF,
+                  Theme.of(context).primaryColor.value & 0xFF,
+                ), // Slightly lighter primary color
               ),
             ],
           ),
@@ -114,13 +113,7 @@ class _EarnCoinsScreenLoading extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.blueAccent, Colors.lightBlueAccent],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
+        color: Colors.white, // White background
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

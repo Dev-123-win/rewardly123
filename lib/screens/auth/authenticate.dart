@@ -21,10 +21,10 @@ class _AuthenticateState extends State<Authenticate> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black, // Dark background
+      backgroundColor: Colors.white, // White background
       body: Container(
         decoration: const BoxDecoration(
-          color: Color(0xFF1A1A1A), // Dark grey
+          color: Colors.white, // Solid white background
         ),
         child: Column(
           children: [
@@ -33,8 +33,9 @@ class _AuthenticateState extends State<Authenticate> {
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.white.withAlpha((255 * 0.1).round()),
+                  color: Colors.grey[100], // Light grey background for the segmented control
                   borderRadius: BorderRadius.circular(10.0),
+                  border: Border.all(color: Colors.grey[300]!), // Subtle border
                 ),
                 child: Row(
                   children: [
@@ -48,14 +49,14 @@ class _AuthenticateState extends State<Authenticate> {
                         child: Container(
                           padding: const EdgeInsets.symmetric(vertical: 12.0),
                           decoration: BoxDecoration(
-                            color: showSignIn ? Colors.deepPurple : Colors.transparent,
-                            borderRadius: BorderRadius.circular(10.0),
+                            color: showSignIn ? Theme.of(context).primaryColor : Colors.transparent, // Primary color for selected
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
                           child: Center(
                             child: Text(
                               'Login',
                               style: TextStyle(
-                                color: showSignIn ? Colors.white : Colors.white70,
+                                color: showSignIn ? Colors.white : Colors.black87, // White text for selected, dark for unselected
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -73,14 +74,14 @@ class _AuthenticateState extends State<Authenticate> {
                         child: Container(
                           padding: const EdgeInsets.symmetric(vertical: 12.0),
                           decoration: BoxDecoration(
-                            color: !showSignIn ? Colors.deepPurple : Colors.transparent,
-                            borderRadius: BorderRadius.circular(10.0),
+                            color: !showSignIn ? Theme.of(context).primaryColor : Colors.transparent, // Primary color for selected
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
                           child: Center(
                             child: Text(
                               'Register',
                               style: TextStyle(
-                                color: !showSignIn ? Colors.white : Colors.white70,
+                                color: !showSignIn ? Colors.white : Colors.black87, // White text for selected, dark for unselected
                                 fontWeight: FontWeight.bold,
                               ),
                             ),

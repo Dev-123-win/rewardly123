@@ -39,6 +39,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.deepPurple,
           visualDensity: VisualDensity.adaptivePlatformDensity,
+          fontFamily: 'Schyler', // Apply Schyler as the default font
         ),
         home: const Wrapper(),
       ),

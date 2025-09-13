@@ -102,15 +102,7 @@ class _HomeState extends State<Home> {
 
     return Scaffold(
       appBar: AppBar(
-        flexibleSpace: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFF8A2BE2), Color(0xFFDA70D6)], // Purple to Orchid gradient
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-          ),
-        ),
+        backgroundColor: Colors.white, // White AppBar background
         title: GestureDetector(
           onTap: () {
             Navigator.push(
@@ -120,14 +112,14 @@ class _HomeState extends State<Home> {
           },
           child: Text(
             user.email ?? 'Rewardly App',
-            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+            style: const TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 18), // Darker text
           ),
         ),
-        elevation: 0.0,
+        elevation: 1.0, // Subtle shadow
         actions: <Widget>[
           TextButton.icon(
-            icon: const Icon(Icons.logout, color: Colors.white),
-            label: const Text('Logout', style: TextStyle(color: Colors.white)),
+            icon: Icon(Icons.logout, color: Theme.of(context).primaryColor), // Primary color icon
+            label: Text('Logout', style: TextStyle(color: Theme.of(context).primaryColor)), // Primary color text
             onPressed: () async {
               await authService.signOut();
             },
@@ -138,7 +130,7 @@ class _HomeState extends State<Home> {
       bottomNavigationBar: BottomNavigationBar(
         items: _buildNavBarItems(),
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.deepPurple, // Adjusted to match new theme
+        selectedItemColor: Theme.of(context).primaryColor, // Primary color for selected item
         unselectedItemColor: Colors.grey[600],
         backgroundColor: Colors.white,
         type: BottomNavigationBarType.fixed,
@@ -165,13 +157,7 @@ class _HomeState extends State<Home> {
 
     return SingleChildScrollView(
       child: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFF8A2BE2), Color(0xFFDA70D6)], // Purple to Orchid gradient
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
+        color: Colors.white, // White background for home content
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -185,7 +171,7 @@ class _HomeState extends State<Home> {
                     children: [
                       Text(
                         user.email ?? 'Rewardly App',
-                        style: const TextStyle(color: Colors.white, fontSize: 16),
+                        style: const TextStyle(color: Colors.black87, fontSize: 16), // Darker text
                       ),
                     ],
                   ),
@@ -197,17 +183,18 @@ class _HomeState extends State<Home> {
                       );
                     },
                     child: Card(
-                      color: Colors.white.withOpacity(0.2),
+                      color: Colors.grey[100], // Light grey card
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                      elevation: 2.0,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                         child: Row(
                           children: [
-                            const Icon(Icons.account_balance_wallet, color: Colors.white, size: 20),
+                            Icon(Icons.account_balance_wallet, color: Theme.of(context).primaryColor, size: 20), // Primary color icon
                             const SizedBox(width: 8),
                             Text(
                               'Total Balance\n₹${totalBalanceINR.toStringAsFixed(2)}',
-                              style: const TextStyle(color: Colors.white, fontSize: 14),
+                              style: const TextStyle(color: Colors.black87, fontSize: 14), // Darker text
                             ),
                           ],
                         ),
@@ -221,7 +208,7 @@ class _HomeState extends State<Home> {
               padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               child: Text(
                 'Available Coins',
-                style: TextStyle(color: Colors.white70, fontSize: 16),
+                style: TextStyle(color: Colors.black54, fontSize: 16), // Darker text
               ),
             ),
             Padding(
@@ -235,12 +222,35 @@ class _HomeState extends State<Home> {
                       child: Container(
                         padding: const EdgeInsets.all(15.0),
                         decoration: BoxDecoration(
-                          gradient: const LinearGradient(
-                            colors: [Color(0xFFFFD700), Color(0xFFFFEC8B)], // Gold gradient
+                          borderRadius: BorderRadius.circular(15.0),
+                          gradient: LinearGradient(
+                            colors: [
+                              Color.fromARGB((Colors.white.alpha * 0.5).round(), Colors.white.red, Colors.white.green, Colors.white.blue),
+                              Color.fromARGB((Colors.white.alpha * 0.2).round(), Colors.white.red, Colors.white.green, Colors.white.blue),
+                            ],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                           ),
-                          borderRadius: BorderRadius.circular(15.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color.fromARGB(
+                                (((Colors.black.value >> 24) & 0xFF) * 0.1).round(),
+                                (Colors.black.value >> 16) & 0xFF,
+                                (Colors.black.value >> 8) & 0xFF,
+                                Colors.black.value & 0xFF,
+                              ),
+                              blurRadius: 10,
+                              spreadRadius: 2,
+                            ),
+                          ],
+                          border: Border.all(
+                            color: Color.fromARGB(
+                              (((Colors.white.value >> 24) & 0xFF) * 0.2).round(),
+                              (Colors.white.value >> 16) & 0xFF,
+                              (Colors.white.value >> 8) & 0xFF,
+                              Colors.white.value & 0xFF,
+                            ),
+                          ),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -251,14 +261,14 @@ class _HomeState extends State<Home> {
                                 const SizedBox(width: 10),
                                 Text(
                                   '${coins}K', // Assuming K for thousands, adjust as needed
-                                  style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.brown),
+                                  style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.black87), // Darker text
                                 ),
                               ],
                             ),
                             const SizedBox(height: 5),
                             const Text(
                               'Coins',
-                              style: TextStyle(fontSize: 16, color: Colors.brown),
+                              style: TextStyle(fontSize: 16, color: Colors.black54), // Darker text
                             ),
                           ],
                         ),
@@ -273,30 +283,53 @@ class _HomeState extends State<Home> {
                       child: Container(
                         padding: const EdgeInsets.all(15.0),
                         decoration: BoxDecoration(
-                          gradient: const LinearGradient(
-                            colors: [Color(0xFF9370DB), Color(0xFFDDA0DD)], // MediumPurple gradient
+                          borderRadius: BorderRadius.circular(15.0),
+                          gradient: LinearGradient(
+                            colors: [
+                              Color.fromARGB((Colors.white.alpha * 0.5).round(), Colors.white.red, Colors.white.green, Colors.white.blue),
+                              Color.fromARGB((Colors.white.alpha * 0.2).round(), Colors.white.red, Colors.white.green, Colors.white.blue),
+                            ],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                           ),
-                          borderRadius: BorderRadius.circular(15.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color.fromARGB(
+                                (((Colors.black.value >> 24) & 0xFF) * 0.1).round(),
+                                (Colors.black.value >> 16) & 0xFF,
+                                (Colors.black.value >> 8) & 0xFF,
+                                Colors.black.value & 0xFF,
+                              ),
+                              blurRadius: 10,
+                              spreadRadius: 2,
+                            ),
+                          ],
+                          border: Border.all(
+                            color: Color.fromARGB(
+                              (((Colors.white.value >> 24) & 0xFF) * 0.2).round(),
+                              (Colors.white.value >> 16) & 0xFF,
+                              (Colors.white.value >> 8) & 0xFF,
+                              Colors.white.value & 0xFF,
+                            ),
+                          ),
                         ),
-                        child: const Column(
+                        child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
                               children: [
-                                Icon(Icons.diamond, size: 40, color: Colors.purple), // Placeholder for diamond icon
-                                SizedBox(width: 10),
+                                Icon(Icons.diamond, size: 40, color: Theme.of(context).primaryColor), // Primary color icon
+                                const SizedBox(width: 10),
                                 Text(
                                   '0', // Diamonds are not tracked, so display 0
-                                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.purple),
+                                  style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.black87), // Darker text
                                 ),
                               ],
                             ),
-                            SizedBox(height: 5),
-                            Text(
+                            const SizedBox(height: 5),
+                            const Text(
                               'Diamonds',
-                              style: TextStyle(fontSize: 16, color: Colors.purple),
+                              style: TextStyle(fontSize: 16, color: Colors.black54), // Darker text
                             ),
                           ],
                         ),
@@ -316,8 +349,21 @@ class _HomeState extends State<Home> {
                 width: double.infinity,
                 padding: const EdgeInsets.all(15.0),
                 decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [Color(0xFF9932CC), Color(0xFFBA55D3)], // DarkOrchid gradient
+                  gradient: LinearGradient(
+                    colors: [
+                      Color.fromARGB(
+                        (((Theme.of(context).primaryColor.value >> 24) & 0xFF) * 0.8).round(),
+                        (Theme.of(context).primaryColor.value >> 16) & 0xFF,
+                        (Theme.of(context).primaryColor.value >> 8) & 0xFF,
+                        Theme.of(context).primaryColor.value & 0xFF,
+                      ),
+                      Color.fromARGB(
+                        (((Theme.of(context).primaryColor.value >> 24) & 0xFF) * 0.6).round(),
+                        (Theme.of(context).primaryColor.value >> 16) & 0xFF,
+                        (Theme.of(context).primaryColor.value >> 8) & 0xFF,
+                        Theme.of(context).primaryColor.value & 0xFF,
+                      ),
+                    ], // Primary color gradient
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -325,7 +371,7 @@ class _HomeState extends State<Home> {
                 ),
                 child: Row(
                   children: [
-                    const Icon(Icons.star, color: Colors.yellow, size: 30),
+                    const Icon(Icons.star, color: Colors.white, size: 30),
                     const SizedBox(width: 10),
                     Expanded(
                       child: Column(
@@ -354,7 +400,7 @@ class _HomeState extends State<Home> {
                         backgroundColor: Colors.white,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                       ),
-                      child: const Text('Get now!', style: TextStyle(color: Colors.deepPurple)),
+                      child: Text('Get now!', style: TextStyle(color: Theme.of(context).primaryColor)), // Primary color text
                     ),
                   ],
                 ),
@@ -464,28 +510,61 @@ class _HomeState extends State<Home> {
         child: Container(
           padding: const EdgeInsets.all(15.0),
           decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15.0),
             gradient: LinearGradient(
-              colors: [startColor, endColor],
+              colors: [
+                Color.fromARGB(
+                  (((Colors.white.value >> 24) & 0xFF) * 0.5).round(),
+                  (Colors.white.value >> 16) & 0xFF,
+                  (Colors.white.value >> 8) & 0xFF,
+                  Colors.white.value & 0xFF,
+                ),
+                Color.fromARGB(
+                  (((Colors.white.value >> 24) & 0xFF) * 0.2).round(),
+                  (Colors.white.value >> 16) & 0xFF,
+                  (Colors.white.value >> 8) & 0xFF,
+                  Colors.white.value & 0xFF,
+                ),
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
-            borderRadius: BorderRadius.circular(15.0),
+            boxShadow: [
+              BoxShadow(
+                  color: Color.fromARGB(
+                    (((Colors.black.value >> 24) & 0xFF) * 0.1).round(),
+                    (Colors.black.value >> 16) & 0xFF,
+                    (Colors.black.value >> 8) & 0xFF,
+                    Colors.black.value & 0xFF,
+                  ),
+                blurRadius: 10,
+                spreadRadius: 2,
+              ),
+            ],
+            border: Border.all(
+              color: Color.fromARGB(
+                (((Colors.white.value >> 24) & 0xFF) * 0.2).round(),
+                (Colors.white.value >> 16) & 0xFF,
+                (Colors.white.value >> 8) & 0xFF,
+                Colors.white.value & 0xFF,
+              ),
+            ),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Icon(icon, size: 40, color: Colors.white),
+              Icon(icon, size: 40, color: Theme.of(context).primaryColor), // Primary color icon
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black87), // Darker text
                   ),
                   Text(
                     subtitle,
-                    style: const TextStyle(fontSize: 12, color: Colors.white70),
+                    style: const TextStyle(fontSize: 12, color: Colors.black54), // Darker text
                   ),
                 ],
               ),
@@ -504,15 +583,7 @@ class HomeScreenLoading extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        flexibleSpace: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.blueAccent, Colors.lightBlueAccent],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-          ),
-        ),
+        backgroundColor: Colors.white, // White AppBar background
         title: const ShimmerLoading.rectangular(height: 18, width: 150),
         actions: <Widget>[
           const ShimmerLoading.circular(width: 40, height: 40),
@@ -523,13 +594,7 @@ class HomeScreenLoading extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.blueAccent, Colors.lightBlueAccent],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
-          ),
+          color: Colors.white, // White background
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

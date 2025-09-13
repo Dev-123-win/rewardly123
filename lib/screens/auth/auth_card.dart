@@ -13,10 +13,10 @@ class AuthCard extends StatelessWidget {
     return Center(
       child: Card(
         margin: const EdgeInsets.all(20.0),
-        elevation: 8.0,
-        color: Colors.black.withAlpha((255 * 0.4).round()), // Dark background for the card
+        elevation: 4.0, // Reduced elevation for a lighter feel
+        color: Colors.white, // White background for the card
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
+          borderRadius: BorderRadius.circular(12.0), // Slightly less rounded corners
         ),
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(20.0),

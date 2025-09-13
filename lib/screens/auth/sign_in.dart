@@ -27,11 +27,10 @@ class _SignInState extends State<SignIn> {
     return loading
         ? const AuthScreenLoading()
         : Scaffold(
-            backgroundColor: Colors.black, // Dark background
+            backgroundColor: Colors.white, // White background
             body: Container(
               decoration: const BoxDecoration(
-                // Subtle geometric pattern or solid dark background
-                color: Color(0xFF1A1A1A), // Dark grey
+                color: Colors.white, // Solid white background
               ),
               child: Center(
                 child: SingleChildScrollView(
@@ -43,7 +42,7 @@ class _SignInState extends State<SignIn> {
                       const SizedBox(height: 20),
                       const Text(
                         'Earn Smarter. Play. Win. Cashout.',
-                        style: TextStyle(fontSize: 16, color: Colors.white70),
+                        style: TextStyle(fontSize: 16, color: Colors.black87), // Darker text for readability
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 40),
@@ -55,18 +54,20 @@ class _SignInState extends State<SignIn> {
                               TextFormField(
                                 decoration: InputDecoration(
                                   hintText: 'Email',
-                                  hintStyle: TextStyle(color: Colors.white54),
-                                  prefixIcon: Icon(Icons.email, color: Colors.white70),
+                                  hintStyle: TextStyle(color: Colors.grey[600]), // Lighter hint text
+                                  prefixIcon: Icon(Icons.email, color: Colors.grey[700]), // Darker icon
                                   filled: true,
-                                  fillColor: Colors.white.withOpacity(0.1),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.white.withOpacity(0.3), width: 1.0),
+                                  fillColor: Colors.grey[100], // Light fill color
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.grey[300]!, width: 1.0), // Light border
+                                    borderRadius: BorderRadius.circular(8.0),
                                   ),
-                                  focusedBorder: const UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.pinkAccent, width: 2.0), // Glowing underline
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2.0), // Primary color border
+                                    borderRadius: BorderRadius.circular(8.0),
                                   ),
                                 ),
-                                style: const TextStyle(color: Colors.white),
+                                style: const TextStyle(color: Colors.black87), // Dark text
                                 validator: (val) => val!.isEmpty ? 'Enter an email' : null,
                                 onChanged: (val) {
                                   setState(() => email = val);
@@ -76,18 +77,20 @@ class _SignInState extends State<SignIn> {
                               TextFormField(
                                 decoration: InputDecoration(
                                   hintText: 'Password',
-                                  hintStyle: TextStyle(color: Colors.white54),
-                                  prefixIcon: Icon(Icons.lock, color: Colors.white70),
+                                  hintStyle: TextStyle(color: Colors.grey[600]), // Lighter hint text
+                                  prefixIcon: Icon(Icons.lock, color: Colors.grey[700]), // Darker icon
                                   filled: true,
-                                  fillColor: Colors.white.withOpacity(0.1),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.white.withOpacity(0.3), width: 1.0),
+                                  fillColor: Colors.grey[100], // Light fill color
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.grey[300]!, width: 1.0), // Light border
+                                    borderRadius: BorderRadius.circular(8.0),
                                   ),
-                                  focusedBorder: const UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.pinkAccent, width: 2.0), // Glowing underline
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2.0), // Primary color border
+                                    borderRadius: BorderRadius.circular(8.0),
                                   ),
                                 ),
-                                style: const TextStyle(color: Colors.white),
+                                style: const TextStyle(color: Colors.black87), // Dark text
                                 obscureText: true,
                                 validator: (val) => val!.length < 6 ? 'Enter a password 6+ chars long' : null,
                                 onChanged: (val) {
@@ -125,9 +128,9 @@ class _SignInState extends State<SignIn> {
                                     MaterialPageRoute(builder: (context) => const ForgotPassword()),
                                   );
                                 },
-                                child: const Text(
+                                child: Text(
                                   'Forgot Password?',
-                                  style: TextStyle(color: Colors.white, decoration: TextDecoration.underline),
+                                  style: TextStyle(color: Theme.of(context).primaryColor, decoration: TextDecoration.underline), // Primary color
                                 ),
                               ),
                               const SizedBox(height: 10.0), // Adjusted spacing
@@ -135,9 +138,9 @@ class _SignInState extends State<SignIn> {
                                 onPressed: () {
                                   widget.toggleView();
                                 },
-                                child: const Text(
+                                child: Text(
                                   'Don\'t have an account? Register now',
-                                  style: TextStyle(color: Colors.white, decoration: TextDecoration.underline),
+                                  style: TextStyle(color: Theme.of(context).primaryColor, decoration: TextDecoration.underline), // Primary color
                                 ),
                               ),
                             ],
@@ -159,15 +162,15 @@ class AuthScreenLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white, // White background
       body: Container(
         decoration: const BoxDecoration(
-          color: Color(0xFF1A1A1A),
+          color: Colors.white, // Solid white background
         ),
         child: Center(
           child: Card(
             margin: const EdgeInsets.all(20.0),
-            color: Colors.black.withOpacity(0.4),
+            color: Colors.grey[100], // Light grey background for loading card
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(

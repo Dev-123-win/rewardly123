@@ -86,21 +86,16 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
     int currentCoins = userData['coins'] ?? 0;
 
     return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Colors.indigo, Colors.blue],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ),
-      ),
+      color: Colors.white, // White background
       child: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
           child: Card(
             margin: const EdgeInsets.all(16.0),
-            elevation: 8.0,
+            elevation: 4.0, // Reduced elevation
+            color: Colors.white, // White card background
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0),
+              borderRadius: BorderRadius.circular(12.0), // Slightly less rounded corners
             ),
             child: Padding(
               padding: const EdgeInsets.all(20.0),
@@ -109,22 +104,28 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    const Text(
+                    Text(
                       'Withdraw Coins',
-                      style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.indigo),
+                      style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor), // Primary color title
                     ),
                     const SizedBox(height: 20),
                     Text(
                       'Available Coins: $currentCoins',
-                      style: const TextStyle(fontSize: 18, color: Colors.black87),
+                      style: const TextStyle(fontSize: 18, color: Colors.black87), // Darker text
                     ),
                     const SizedBox(height: 20),
                     TextFormField(
                       keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         labelText: 'Amount to Withdraw',
-                        prefixIcon: Icon(Icons.money, color: Colors.indigo),
-                        border: OutlineInputBorder(),
+                        prefixIcon: Icon(Icons.money, color: Theme.of(context).primaryColor), // Primary color icon
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2.0),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
                       ),
                       validator: (val) {
                         if (val == null || val.isEmpty) {
@@ -142,10 +143,16 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
                     const SizedBox(height: 20),
                     DropdownButtonFormField<String>(
                       initialValue: _paymentMethod,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         labelText: 'Payment Method',
-                        prefixIcon: Icon(Icons.payment, color: Colors.indigo),
-                        border: OutlineInputBorder(),
+                        prefixIcon: Icon(Icons.payment, color: Theme.of(context).primaryColor), // Primary color icon
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2.0),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
                       ),
                       items: <String>['PayPal', 'Bank Transfer', 'Crypto']
                           .map<DropdownMenuItem<String>>((String value) {
@@ -164,20 +171,31 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
                     TextFormField(
                       decoration: InputDecoration(
                         labelText: '$_paymentMethod Details (e.g., email, account number)',
-                        prefixIcon: const Icon(Icons.info, color: Colors.indigo),
-                        border: const OutlineInputBorder(),
+                        prefixIcon: Icon(Icons.info, color: Theme.of(context).primaryColor), // Primary color icon
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2.0),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
                       ),
                       controller: _paymentDetailsController,
                       validator: (val) => val!.isEmpty ? 'Please enter payment details' : null,
                     ),
                     const SizedBox(height: 20),
                     _isLoading
-                        ? const ShimmerLoading.rectangular(height: 50)
+                        ? ShimmerLoading.rectangular(height: 50, width: double.infinity)
                         : CustomButton(
                             text: 'Submit Withdrawal',
                             onPressed: _submitWithdrawal,
-                            startColor: Colors.indigo,
-                            endColor: Colors.blue,
+                            startColor: Theme.of(context).primaryColor, // Primary color
+                            endColor: Color.fromARGB(
+                              (((Theme.of(context).primaryColor.value >> 24) & 0xFF) * 0.8).round(),
+                              (Theme.of(context).primaryColor.value >> 16) & 0xFF,
+                              (Theme.of(context).primaryColor.value >> 8) & 0xFF,
+                              Theme.of(context).primaryColor.value & 0xFF,
+                            ), // Slightly lighter primary color
                           ),
                   ],
                 ),
@@ -196,21 +214,16 @@ class _WithdrawScreenLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Colors.indigo, Colors.blue],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ),
-      ),
+      color: Colors.white, // White background
       child: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
           child: Card(
             margin: const EdgeInsets.all(16.0),
-            elevation: 8.0,
+            elevation: 4.0, // Reduced elevation
+            color: Colors.white, // White card background
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0),
+              borderRadius: BorderRadius.circular(12.0), // Slightly less rounded corners
             ),
             child: Padding(
               padding: const EdgeInsets.all(20.0),

@@ -27,10 +27,10 @@ class _RegisterState extends State<Register> {
     return loading
         ? const AuthScreenLoading()
         : Scaffold(
-            backgroundColor: Colors.black, // Dark background
+            backgroundColor: Colors.white, // White background
             body: Container(
               decoration: const BoxDecoration(
-                color: Color(0xFF1A1A1A), // Dark grey
+                color: Colors.white, // Solid white background
               ),
               child: Center(
                 child: SingleChildScrollView(
@@ -42,7 +42,7 @@ class _RegisterState extends State<Register> {
                       const SizedBox(height: 20),
                       const Text(
                         'Earn Smarter. Play. Win. Cashout.',
-                        style: TextStyle(fontSize: 16, color: Colors.white70),
+                        style: TextStyle(fontSize: 16, color: Colors.black87), // Darker text for readability
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 40),
@@ -54,18 +54,20 @@ class _RegisterState extends State<Register> {
                               TextFormField(
                                 decoration: InputDecoration(
                                   hintText: 'Email',
-                                  hintStyle: TextStyle(color: Colors.white54),
-                                  prefixIcon: Icon(Icons.email, color: Colors.white70),
+                                  hintStyle: TextStyle(color: Colors.grey[600]), // Lighter hint text
+                                  prefixIcon: Icon(Icons.email, color: Colors.grey[700]), // Darker icon
                                   filled: true,
-                                  fillColor: Colors.white.withAlpha((255 * 0.1).round()),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.white.withAlpha((255 * 0.3).round()), width: 1.0),
+                                  fillColor: Colors.grey[100], // Light fill color
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.grey[300]!, width: 1.0), // Light border
+                                    borderRadius: BorderRadius.circular(8.0),
                                   ),
-                                  focusedBorder: const UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.pinkAccent, width: 2.0), // Glowing underline
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2.0), // Primary color border
+                                    borderRadius: BorderRadius.circular(8.0),
                                   ),
                                 ),
-                                style: const TextStyle(color: Colors.white),
+                                style: const TextStyle(color: Colors.black87), // Dark text
                                 validator: (val) => val!.isEmpty ? 'Enter an email' : null,
                                 onChanged: (val) {
                                   setState(() => email = val);
@@ -75,18 +77,20 @@ class _RegisterState extends State<Register> {
                               TextFormField(
                                 decoration: InputDecoration(
                                   hintText: 'Password',
-                                  hintStyle: TextStyle(color: Colors.white54),
-                                  prefixIcon: Icon(Icons.lock, color: Colors.white70),
+                                  hintStyle: TextStyle(color: Colors.grey[600]), // Lighter hint text
+                                  prefixIcon: Icon(Icons.lock, color: Colors.grey[700]), // Darker icon
                                   filled: true,
-                                  fillColor: Colors.white.withAlpha((255 * 0.1).round()),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.white.withAlpha((255 * 0.3).round()), width: 1.0),
+                                  fillColor: Colors.grey[100], // Light fill color
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.grey[300]!, width: 1.0), // Light border
+                                    borderRadius: BorderRadius.circular(8.0),
                                   ),
-                                  focusedBorder: const UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.pinkAccent, width: 2.0), // Glowing underline
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2.0), // Primary color border
+                                    borderRadius: BorderRadius.circular(8.0),
                                   ),
                                 ),
-                                style: const TextStyle(color: Colors.white),
+                                style: const TextStyle(color: Colors.black87), // Dark text
                                 obscureText: true,
                                 validator: (val) => val!.length < 6 ? 'Enter a password 6+ chars long' : null,
                                 onChanged: (val) {
@@ -97,18 +101,20 @@ class _RegisterState extends State<Register> {
                               TextFormField(
                                 decoration: InputDecoration(
                                   hintText: 'Referral Code (Optional)',
-                                  hintStyle: TextStyle(color: Colors.white54),
-                                  prefixIcon: Icon(Icons.person_add, color: Colors.white70),
+                                  hintStyle: TextStyle(color: Colors.grey[600]), // Lighter hint text
+                                  prefixIcon: Icon(Icons.person_add, color: Colors.grey[700]), // Darker icon
                                   filled: true,
-                                  fillColor: Colors.white.withAlpha((255 * 0.1).round()),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.white.withAlpha((255 * 0.3).round()), width: 1.0),
+                                  fillColor: Colors.grey[100], // Light fill color
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.grey[300]!, width: 1.0), // Light border
+                                    borderRadius: BorderRadius.circular(8.0),
                                   ),
-                                  focusedBorder: const UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.pinkAccent, width: 2.0), // Glowing underline
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2.0), // Primary color border
+                                    borderRadius: BorderRadius.circular(8.0),
                                   ),
                                 ),
-                                style: const TextStyle(color: Colors.white),
+                                style: const TextStyle(color: Colors.black87), // Dark text
                                 onChanged: (val) {
                                   setState(() => referralCode = val);
                                 },
@@ -141,9 +147,9 @@ class _RegisterState extends State<Register> {
                                 onPressed: () {
                                   widget.toggleView();
                                 },
-                                child: const Text(
+                                child: Text(
                                   'Already have an account? Login now',
-                                  style: TextStyle(color: Colors.white, decoration: TextDecoration.underline),
+                                  style: TextStyle(color: Theme.of(context).primaryColor, decoration: TextDecoration.underline), // Primary color
                                 ),
                               ),
                             ],

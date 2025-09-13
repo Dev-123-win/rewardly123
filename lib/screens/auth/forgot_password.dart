@@ -29,10 +29,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black, // Dark background
+      backgroundColor: Colors.white, // White background
       body: Container(
         decoration: const BoxDecoration(
-          color: Color(0xFF1A1A1A), // Dark grey
+          color: Colors.white, // Solid white background
         ),
         child: Center(
           child: SingleChildScrollView(
@@ -44,7 +44,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 const SizedBox(height: 20),
                 const Text(
                   'Earn Smarter. Play. Win. Cashout.',
-                  style: TextStyle(fontSize: 16, color: Colors.white70),
+                  style: TextStyle(fontSize: 16, color: Colors.black87), // Darker text for readability
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 40),
@@ -56,18 +56,20 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         TextFormField(
                           decoration: InputDecoration(
                             hintText: 'Email',
-                            hintStyle: TextStyle(color: Colors.white54),
-                            prefixIcon: Icon(Icons.email, color: Colors.white70),
+                            hintStyle: TextStyle(color: Colors.grey[600]), // Lighter hint text
+                            prefixIcon: Icon(Icons.email, color: Colors.grey[700]), // Darker icon
                             filled: true,
-                            fillColor: Colors.white.withOpacity(0.1),
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white.withOpacity(0.3), width: 1.0),
+                            fillColor: Colors.grey[100], // Light fill color
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey[300]!, width: 1.0), // Light border
+                              borderRadius: BorderRadius.circular(8.0),
                             ),
-                            focusedBorder: const UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.pinkAccent, width: 2.0), // Glowing underline
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2.0), // Primary color border
+                              borderRadius: BorderRadius.circular(8.0),
                             ),
                           ),
-                          style: const TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.black87), // Dark text
                           validator: (val) => val!.isEmpty ? 'Enter your email' : null,
                           onChanged: (val) {
                             setState(() => email = val);
@@ -75,7 +77,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         ),
                         const SizedBox(height: 30.0), // Adjusted spacing
                         loading
-                            ? const CircularProgressIndicator(color: Colors.pinkAccent) // Use pinkAccent for consistency
+                            ? CircularProgressIndicator(color: Theme.of(context).primaryColor) // Use primary color for consistency
                             : CustomButton(
                                 text: 'Send Reset Link', // Dynamic text
                                 onPressed: () async {
@@ -112,16 +114,16 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           onPressed: () {
                             Navigator.pop(context); // Go back to sign in screen
                           },
-                          child: const Text(
+                          child: Text(
                             'Back to Sign In',
-                            style: TextStyle(color: Colors.white, decoration: TextDecoration.underline),
+                            style: TextStyle(color: Theme.of(context).primaryColor, decoration: TextDecoration.underline), // Primary color
                           ),
                         ),
                       ],
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
           ),
         ),
