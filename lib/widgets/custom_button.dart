@@ -18,7 +18,7 @@ class CustomButton extends StatefulWidget {
     this.endColor,
     this.width,
     this.height,
-    this.borderRadius = 8.0,
+    this.borderRadius = 10.0, // Changed default to 10.0 for consistency with image
     this.textStyle,
   });
 
@@ -78,8 +78,8 @@ class _CustomButtonState extends State<CustomButton> with SingleTickerProviderSt
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                widget.startColor ?? Theme.of(context).primaryColor,
-                widget.endColor ?? Theme.of(context).colorScheme.secondary,
+                widget.startColor ?? const Color(0xFF8A2BE2), // Default purple
+                widget.endColor ?? const Color(0xFFDA70D6), // Default pink/orchid
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -87,7 +87,7 @@ class _CustomButtonState extends State<CustomButton> with SingleTickerProviderSt
             borderRadius: BorderRadius.circular(widget.borderRadius),
             boxShadow: [
               BoxShadow(
-                color: (widget.endColor ?? Theme.of(context).colorScheme.secondary).withAlpha(102), // Replaced withOpacity(0.4) with .withAlpha(102)
+                color: (widget.endColor ?? const Color(0xFFDA70D6)).withAlpha(102), // Default pink/orchid with alpha
                 blurRadius: 8,
                 offset: const Offset(0, 4),
               ),

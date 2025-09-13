@@ -51,7 +51,7 @@ class ReferralScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10.0),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withAlpha((255 * 0.2).round()),
+                      color: Colors.black.withOpacity(0.2),
                       blurRadius: 5,
                       offset: const Offset(0, 3),
                     ),

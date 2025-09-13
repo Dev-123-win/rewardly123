@@ -11,6 +11,11 @@ import 'package:rewardly_app/screens/home/earn_coins_screen.dart';
 import 'package:rewardly_app/screens/home/referral_screen.dart';
 import 'package:rewardly_app/screens/home/profile_screen.dart';
 import 'package:rewardly_app/screens/home/withdraw_screen.dart';
+import 'package:rewardly_app/screens/home/aqua_blast_screen.dart';
+import 'package:rewardly_app/screens/home/offer_pro_screen.dart';
+import 'package:rewardly_app/screens/home/read_and_earn_screen.dart';
+import 'package:rewardly_app/screens/home/play_game_screen.dart';
+import 'package:rewardly_app/screens/home/daily_stream_screen.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -20,10 +25,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final AuthService _auth = AuthService();
-  final RemoteConfigService _remoteConfigService = RemoteConfigService();
-
-  int _selectedIndex = 0;
+  int _selectedIndex = 2; // Set Home as initial selected index
   bool _isAdmin = false;
 
   @override
@@ -41,7 +43,6 @@ class _HomeState extends State<Home> {
       if (userDataProvider.userData != null) {
         admin = userDataProvider.userData!['isAdmin'] ?? false;
       } else {
-        // Fallback to direct service call if provider data is not yet available
         admin = await UserService().isAdmin(user.uid);
       }
       setState(() {
@@ -52,18 +53,27 @@ class _HomeState extends State<Home> {
 
   List<Widget> _buildScreens() {
     return [
-      // EarnCoinsScreen is now accessed via a shortcut card on the main home body
-      const ReferralScreen(),
-      const ProfileScreen(),
-      if (_isAdmin) const AdminPanel(),
+      const WithdrawScreen(), // Index 0 (Redeem)
+      const ReferralScreen(), // Index 1 (Invite)
+      _buildHomePageContent(), // Index 2 (Home)
+      const ProfileScreen(), // Index 3 (Profile)
+      if (_isAdmin) const AdminPanel(), // Index 4 (Admin)
     ];
   }
 
   List<BottomNavigationBarItem> _buildNavBarItems() {
     List<BottomNavigationBarItem> items = [
       const BottomNavigationBarItem(
-        icon: Icon(Icons.share),
-        label: 'Referral',
+        icon: Icon(Icons.redeem),
+        label: 'Redeem',
+      ),
+      const BottomNavigationBarItem(
+        icon: Icon(Icons.person_add),
+        label: 'Invite',
+      ),
+      const BottomNavigationBarItem(
+        icon: Icon(Icons.home),
+        label: 'Home',
       ),
       const BottomNavigationBarItem(
         icon: Icon(Icons.person),
@@ -84,6 +94,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User?>(context);
+    final AuthService authService = AuthService(); // Access AuthService here
 
     if (user == null) {
       return const HomeScreenLoading();
@@ -94,7 +105,7 @@ class _HomeState extends State<Home> {
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [Colors.blueAccent, Colors.lightBlueAccent],
+              colors: [Color(0xFF8A2BE2), Color(0xFFDA70D6)], // Purple to Orchid gradient
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -114,131 +125,373 @@ class _HomeState extends State<Home> {
         ),
         elevation: 0.0,
         actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.account_balance_wallet, color: Colors.white),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const WithdrawScreen()),
-              );
-            },
-          ),
           TextButton.icon(
             icon: const Icon(Icons.logout, color: Colors.white),
             label: const Text('Logout', style: TextStyle(color: Colors.white)),
             onPressed: () async {
-              await _auth.signOut();
+              await authService.signOut();
             },
           )
         ],
       ),
-      body: _selectedIndex == 0 // If selected index is 0, show the main home content with shortcut cards
-          ? SingleChildScrollView(
-              child: Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Colors.blueAccent, Colors.lightBlueAccent],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  ),
-                ),
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      // Watch & Earn Shortcut Card
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const EarnCoinsScreen()),
-                          );
-                        },
-                        child: Card(
-                          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                          elevation: 8.0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          child: Container(
-                            width: double.infinity,
-                            padding: const EdgeInsets.all(20.0),
-                            decoration: BoxDecoration(
-                              gradient: const LinearGradient(
-                                colors: [Colors.green, Colors.lightGreen],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                              ),
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                            child: const Column(
-                              children: [
-                                Icon(Icons.play_circle_fill, size: 50, color: Colors.white),
-                                SizedBox(height: 10),
-                                Text(
-                                  'Watch Ads & Earn Coins',
-                                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
-                                ),
-                                SizedBox(height: 5),
-                                Text(
-                                  'Tap to watch rewarded videos and get coins!',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize: 14, color: Colors.white70),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      Consumer<UserDataProvider>(
-                        builder: (context, userDataProvider, child) {
-                          if (userDataProvider.userData == null) {
-                            return const Center(
-                              child: Column(
-                                children: [
-                                  ShimmerLoading.rectangular(height: 30, width: 150),
-                                  SizedBox(height: 10),
-                                  ShimmerLoading.rectangular(height: 18, width: 200),
-                                ],
-                              ),
-                            );
-                          }
-                          Map<String, dynamic> userData = userDataProvider.userData!.data() as Map<String, dynamic>;
-                          int coins = userData['coins'] ?? 0;
-                          int adsWatchedToday = userData['adsWatchedToday'] ?? 0;
-                          return Column(
-                            children: [
-                              Text(
-                                'Coins: $coins',
-                                style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
-                              ),
-                              const SizedBox(height: 10),
-                              Text(
-                                'Ads Watched Today: $adsWatchedToday / ${_remoteConfigService.dailyAdLimit}',
-                                style: const TextStyle(fontSize: 18, color: Colors.white70),
-                              ),
-                            ],
-                          );
-                        },
+      body: _buildScreens()[_selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        items: _buildNavBarItems(),
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.deepPurple, // Adjusted to match new theme
+        unselectedItemColor: Colors.grey[600],
+        backgroundColor: Colors.white,
+        type: BottomNavigationBarType.fixed,
+        onTap: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+      ),
+    );
+  }
+
+  Widget _buildHomePageContent() {
+    final user = Provider.of<User?>(context);
+    final userDataProvider = Provider.of<UserDataProvider>(context);
+
+    if (user == null || userDataProvider.userData == null) {
+      return const HomeScreenLoading();
+    }
+
+    Map<String, dynamic> userData = userDataProvider.userData!.data() as Map<String, dynamic>;
+    int coins = userData['coins'] ?? 0;
+    double totalBalanceINR = coins / 1000.0; // 1000 coins = 1 INR
+
+    return SingleChildScrollView(
+      child: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFF8A2BE2), Color(0xFFDA70D6)], // Purple to Orchid gradient
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        user.email ?? 'Rewardly App',
+                        style: const TextStyle(color: Colors.white, fontSize: 16),
                       ),
                     ],
                   ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const WithdrawScreen()),
+                      );
+                    },
+                    child: Card(
+                      color: Colors.white.withOpacity(0.2),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.account_balance_wallet, color: Colors.white, size: 20),
+                            const SizedBox(width: 8),
+                            Text(
+                              'Total Balance\n₹${totalBalanceINR.toStringAsFixed(2)}',
+                              style: const TextStyle(color: Colors.white, fontSize: 14),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: Text(
+                'Available Coins',
+                style: TextStyle(color: Colors.white70, fontSize: 16),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Card(
+                      elevation: 4.0,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+                      child: Container(
+                        padding: const EdgeInsets.all(15.0),
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            colors: [Color(0xFFFFD700), Color(0xFFFFEC8B)], // Gold gradient
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Image.asset('assets/AppLogo.png', height: 40, width: 40), // Placeholder for coin icon
+                                const SizedBox(width: 10),
+                                Text(
+                                  '${coins}K', // Assuming K for thousands, adjust as needed
+                                  style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.brown),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 5),
+                            const Text(
+                              'Coins',
+                              style: TextStyle(fontSize: 16, color: Colors.brown),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Card(
+                      elevation: 4.0,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+                      child: Container(
+                        padding: const EdgeInsets.all(15.0),
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            colors: [Color(0xFF9370DB), Color(0xFFDDA0DD)], // MediumPurple gradient
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        child: const Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(Icons.diamond, size: 40, color: Colors.purple), // Placeholder for diamond icon
+                                SizedBox(width: 10),
+                                Text(
+                                  '0', // Diamonds are not tracked, so display 0
+                                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.purple),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 5),
+                            Text(
+                              'Diamonds',
+                              style: TextStyle(fontSize: 16, color: Colors.purple),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+            // Super Offer Card
+            Card(
+              margin: const EdgeInsets.symmetric(horizontal: 16.0),
+              elevation: 4.0,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(15.0),
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [Color(0xFF9932CC), Color(0xFFBA55D3)], // DarkOrchid gradient
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                child: Row(
+                  children: [
+                    const Icon(Icons.star, color: Colors.yellow, size: 30),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Super Offer',
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            'Get coin Upto ${RemoteConfigService().coinsPerAd * RemoteConfigService().dailyAdLimit}k', // Example, adjust as needed
+                            style: const TextStyle(fontSize: 14, color: Colors.white70),
+                          ),
+                        ],
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const EarnCoinsScreen()),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                      ),
+                      child: const Text('Get now!', style: TextStyle(color: Colors.deepPurple)),
+                    ),
+                  ],
                 ),
               ),
-            )
-          : _buildScreens()[_selectedIndex - 1], // Adjust index for screens in bottom nav
-      bottomNavigationBar: BottomNavigationBar(
-        items: _buildNavBarItems(),
-        currentIndex: _selectedIndex == 0 ? 0 : _selectedIndex - 1, // Adjust index for bottom nav
-        selectedItemColor: Colors.blueAccent,
-        unselectedItemColor: Colors.grey[600],
-        backgroundColor: Colors.white,
-        onTap: (index) {
-          setState(() {
-            _selectedIndex = index + 1; // Adjust index for screens in bottom nav
-          });
-        },
+            ),
+            const SizedBox(height: 20),
+            // Offer Grid
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: GridView.count(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                crossAxisCount: 2,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                children: [
+                  _buildOfferCard(
+                    context,
+                    title: 'Aqua Blast',
+                    subtitle: 'Get coin Upto ∞',
+                    icon: Icons.gamepad,
+                    startColor: const Color(0xFF6A5ACD), // SlateBlue
+                    endColor: const Color(0xFF836FFF), // LightSlateBlue
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const AquaBlastScreen()));
+                    },
+                  ),
+                  _buildOfferCard(
+                    context,
+                    title: 'OfferPro',
+                    subtitle: 'Get coin Upto 100K',
+                    icon: Icons.local_offer,
+                    startColor: const Color(0xFF483D8B), // DarkSlateBlue
+                    endColor: const Color(0xFF6A5ACD), // SlateBlue
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const OfferProScreen()));
+                    },
+                  ),
+                  _buildOfferCard(
+                    context,
+                    title: 'Read & Earn',
+                    subtitle: 'Earn Upto',
+                    icon: Icons.menu_book,
+                    startColor: const Color(0xFFDAA520), // GoldenRod
+                    endColor: const Color(0xFFFFD700), // Gold
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const ReadAndEarnScreen()));
+                    },
+                  ),
+                  _buildOfferCard(
+                    context,
+                    title: 'Play Game!',
+                    subtitle: 'Earn Upto',
+                    icon: Icons.sports_esports,
+                    startColor: const Color(0xFF8B008B), // DarkMagenta
+                    endColor: const Color(0xFFBA55D3), // MediumPurple
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const PlayGameScreen()));
+                    },
+                  ),
+                  _buildOfferCard(
+                    context,
+                    title: 'Daily Stream',
+                    subtitle: 'Earn Upto',
+                    icon: Icons.stream,
+                    startColor: const Color(0xFF00CED1), // DarkTurquoise
+                    endColor: const Color(0xFF40E0D0), // Turquoise
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const DailyStreamScreen()));
+                    },
+                  ),
+                  _buildOfferCard(
+                    context,
+                    title: 'Watch Ads',
+                    subtitle: 'Earn Upto ${RemoteConfigService().coinsPerAd} coins per ad',
+                    icon: Icons.play_circle_fill,
+                    startColor: Colors.green,
+                    endColor: Colors.lightGreen,
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const EarnCoinsScreen()));
+                    },
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildOfferCard(
+    BuildContext context, {
+    required String title,
+    required String subtitle,
+    required IconData icon,
+    required Color startColor,
+    required Color endColor,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Card(
+        elevation: 4.0,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+        child: Container(
+          padding: const EdgeInsets.all(15.0),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [startColor, endColor],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Icon(icon, size: 40, color: Colors.white),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                  ),
+                  Text(
+                    subtitle,
+                    style: const TextStyle(fontSize: 12, color: Colors.white70),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

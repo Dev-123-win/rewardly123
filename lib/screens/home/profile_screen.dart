@@ -5,6 +5,7 @@ import 'package:rewardly_app/shared/shimmer_loading.dart';
 import 'package:rewardly_app/auth_service.dart';
 import 'package:rewardly_app/providers/user_data_provider.dart';
 import 'package:rewardly_app/widgets/custom_button.dart';
+import 'package:rewardly_app/screens/home/admin_panel.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -63,6 +64,23 @@ class ProfileScreen extends StatelessWidget {
                 style: const TextStyle(fontSize: 16, color: Colors.white70),
               ),
               const SizedBox(height: 40),
+              if (userData['isAdmin'] ?? false) // Show Admin Panel button only if user is admin
+                Column(
+                  children: [
+                    CustomButton(
+                      text: 'Admin Panel',
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const AdminPanel()),
+                        );
+                      },
+                      startColor: Colors.deepOrange,
+                      endColor: Colors.red,
+                    ),
+                    const SizedBox(height: 20),
+                  ],
+                ),
               CustomButton(
                 text: 'Logout',
                 onPressed: () async {
