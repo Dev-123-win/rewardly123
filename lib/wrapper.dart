@@ -16,12 +16,15 @@ class _WrapperState extends State<Wrapper> {
   DateTime? _lastPressedAt;
   bool _showExitConfirmation = false;
 
-  Future<bool> _onWillPop() async {
+  Future<void> _onPopInvokedWithResult(bool didPop) async {
+    if (didPop) {
+      return; // If system back button already handled the pop, let it happen
+    }
     if (_showExitConfirmation) {
       setState(() {
         _showExitConfirmation = false;
       });
-      return false; // Consume the back press to dismiss the overlay
+      return; // Consume the back press to dismiss the overlay
     }
 
     if (_lastPressedAt == null || DateTime.now().difference(_lastPressedAt!) > const Duration(seconds: 2)) {
@@ -29,9 +32,9 @@ class _WrapperState extends State<Wrapper> {
       setState(() {
         _showExitConfirmation = true;
       });
-      return false; // Prevent exit on first press, show overlay
+      return; // Prevent exit on first press, show overlay
     }
-    return true; // Exit on second press within 2 seconds
+    Navigator.of(context).pop(); // Exit on second press within 2 seconds
   }
 
   void _cancelExit() {
@@ -52,8 +55,9 @@ class _WrapperState extends State<Wrapper> {
       content = const Home();
     }
 
-    return WillPopScope(
-      onWillPop: _onWillPop,
+    return PopScope(
+      canPop: false, // Prevent default back button behavior
+      onPopInvokedWithResult: (didPop, result) => _onPopInvokedWithResult(didPop),
       child: Stack(
         children: [
           content,

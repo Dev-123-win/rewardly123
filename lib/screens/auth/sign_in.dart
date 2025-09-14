@@ -40,9 +40,9 @@ class _SignInState extends State<SignIn> {
                     children: <Widget>[
                       Image.asset('assets/AppLogo.png', height: 100), // App Logo
                       const SizedBox(height: 20),
-                      const Text(
+                      Text(
                         'Earn Smarter. Play. Win. Cashout.',
-                        style: TextStyle(fontSize: 16, color: Colors.black87), // Darker text for readability
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.black87),
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 40),
@@ -54,20 +54,20 @@ class _SignInState extends State<SignIn> {
                               TextFormField(
                                 decoration: InputDecoration(
                                   hintText: 'Email',
-                                  hintStyle: TextStyle(color: Colors.grey[600]), // Lighter hint text
-                                  prefixIcon: Icon(Icons.email, color: Colors.grey[700]), // Darker icon
+                                  hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.grey[600]),
+                                  prefixIcon: Icon(Icons.email, color: Colors.grey[700]),
                                   filled: true,
-                                  fillColor: Colors.grey[100], // Light fill color
+                                  fillColor: Colors.grey[100],
                                   enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.grey[300]!, width: 1.0), // Light border
+                                    borderSide: BorderSide(color: Colors.grey[300]!, width: 1.0),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2.0), // Primary color border
+                                    borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2.0),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                 ),
-                                style: const TextStyle(color: Colors.black87), // Dark text
+                                style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.black87),
                                 validator: (val) => val!.isEmpty ? 'Enter an email' : null,
                                 onChanged: (val) {
                                   setState(() => email = val);
@@ -77,50 +77,49 @@ class _SignInState extends State<SignIn> {
                               TextFormField(
                                 decoration: InputDecoration(
                                   hintText: 'Password',
-                                  hintStyle: TextStyle(color: Colors.grey[600]), // Lighter hint text
-                                  prefixIcon: Icon(Icons.lock, color: Colors.grey[700]), // Darker icon
+                                  hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.grey[600]),
+                                  prefixIcon: Icon(Icons.lock, color: Colors.grey[700]),
                                   filled: true,
-                                  fillColor: Colors.grey[100], // Light fill color
+                                  fillColor: Colors.grey[100],
                                   enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.grey[300]!, width: 1.0), // Light border
+                                    borderSide: BorderSide(color: Colors.grey[300]!, width: 1.0),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2.0), // Primary color border
+                                    borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2.0),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                 ),
-                                style: const TextStyle(color: Colors.black87), // Dark text
+                                style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.black87),
                                 obscureText: true,
                                 validator: (val) => val!.length < 6 ? 'Enter a password 6+ chars long' : null,
                                 onChanged: (val) {
                                   setState(() => password = val);
                                 },
                               ),
-                              const SizedBox(height: 30.0), // Adjusted spacing
+                              const SizedBox(height: 30.0),
                               CustomButton(
-                                text: 'Login', // Dynamic text
+                                text: 'Login',
                                 onPressed: () async {
                                   if (_formKey.currentState!.validate()) {
                                     setState(() => loading = true);
+                                    final scaffoldMessenger = ScaffoldMessenger.of(context);
                                     dynamic result = await _auth.signInWithEmailAndPassword(email, password);
                                     if (result is String) {
-                                      if (mounted) {
-                                        setState(() {
-                                          loading = false;
-                                        });
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                          SnackBar(
-                                            content: Text(result),
-                                            backgroundColor: Colors.red,
-                                          ),
-                                        );
-                                      }
+                                      setState(() {
+                                        loading = false;
+                                      });
+                                      scaffoldMessenger.showSnackBar(
+                                        SnackBar(
+                                          content: Text(result, style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white)),
+                                          backgroundColor: Colors.red,
+                                        ),
+                                      );
                                     }
                                   }
                                 },
                               ),
-                              const SizedBox(height: 20.0), // Adjusted spacing
+                              const SizedBox(height: 20.0),
                               TextButton(
                                 onPressed: () {
                                   Navigator.push(
@@ -130,17 +129,17 @@ class _SignInState extends State<SignIn> {
                                 },
                                 child: Text(
                                   'Forgot Password?',
-                                  style: TextStyle(color: Theme.of(context).primaryColor, decoration: TextDecoration.underline), // Primary color
+                                  style: Theme.of(context).textTheme.labelLarge?.copyWith(color: Theme.of(context).primaryColor, decoration: TextDecoration.underline),
                                 ),
                               ),
-                              const SizedBox(height: 10.0), // Adjusted spacing
+                              const SizedBox(height: 10.0),
                               TextButton(
                                 onPressed: () {
                                   widget.toggleView();
                                 },
                                 child: Text(
                                   'Don\'t have an account? Register now',
-                                  style: TextStyle(color: Theme.of(context).primaryColor, decoration: TextDecoration.underline), // Primary color
+                                  style: Theme.of(context).textTheme.labelLarge?.copyWith(color: Theme.of(context).primaryColor, decoration: TextDecoration.underline),
                                 ),
                               ),
                             ],
@@ -162,33 +161,33 @@ class AuthScreenLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, // White background
+      backgroundColor: Colors.white,
       body: Container(
         decoration: const BoxDecoration(
-          color: Colors.white, // Solid white background
+          color: Colors.white,
         ),
         child: Center(
           child: Card(
             margin: const EdgeInsets.all(20.0),
-            color: Colors.grey[100], // Light grey background for loading card
+            color: Colors.grey[100],
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  const ShimmerLoading.rectangular(height: 100, width: 100),
-                  const SizedBox(height: 20.0),
-                  const ShimmerLoading.rectangular(height: 20, width: 250),
-                  const SizedBox(height: 40.0),
-                  const ShimmerLoading.rectangular(height: 50),
-                  const SizedBox(height: 20.0),
-                  const ShimmerLoading.rectangular(height: 50),
-                  const SizedBox(height: 30.0),
-                  const ShimmerLoading.rectangular(height: 50),
-                  const SizedBox(height: 20.0),
-                  const ShimmerLoading.rectangular(height: 20, width: 150),
-                  const SizedBox(height: 10.0),
-                  const ShimmerLoading.rectangular(height: 20, width: 200),
+                children: const <Widget>[
+                  ShimmerLoading.rectangular(height: 100, width: 100),
+                  SizedBox(height: 20.0),
+                  ShimmerLoading.rectangular(height: 20, width: 250),
+                  SizedBox(height: 40.0),
+                  ShimmerLoading.rectangular(height: 50),
+                  SizedBox(height: 20.0),
+                  ShimmerLoading.rectangular(height: 50),
+                  SizedBox(height: 30.0),
+                  ShimmerLoading.rectangular(height: 50),
+                  SizedBox(height: 20.0),
+                  ShimmerLoading.rectangular(height: 20, width: 150),
+                  SizedBox(height: 10.0),
+                  ShimmerLoading.rectangular(height: 20, width: 200),
                 ],
               ),
             ),

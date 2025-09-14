@@ -85,123 +85,110 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
     Map<String, dynamic> userData = userDataProvider.userData!.data() as Map<String, dynamic>;
     int currentCoins = userData['coins'] ?? 0;
 
-    return Container(
-      color: Colors.white, // White background
-      child: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16.0),
-          child: Card(
-            margin: const EdgeInsets.all(16.0),
-            elevation: 4.0, // Reduced elevation
-            color: Colors.white, // White card background
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.0), // Slightly less rounded corners
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 40),
+            Text(
+              'Redeem Your Coins',
+              style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.black87),
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Text(
-                      'Withdraw Coins',
-                      style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor), // Primary color title
-                    ),
-                    const SizedBox(height: 20),
-                    Text(
-                      'Available Coins: $currentCoins',
-                      style: const TextStyle(fontSize: 18, color: Colors.black87), // Darker text
-                    ),
-                    const SizedBox(height: 20),
-                    TextFormField(
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        labelText: 'Amount to Withdraw',
-                        prefixIcon: Icon(Icons.money, color: Theme.of(context).primaryColor), // Primary color icon
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2.0),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
+            const SizedBox(height: 10),
+            Text(
+              'You have $currentCoins coins available to redeem.',
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.black54),
+            ),
+            const SizedBox(height: 30),
+            Form(
+              key: _formKey,
+              child: Column(
+                children: <Widget>[
+                  TextFormField(
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      labelText: 'Amount to Withdraw',
+                      prefixIcon: Icon(Icons.money, color: Theme.of(context).primaryColor),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
-                      validator: (val) {
-                        if (val == null || val.isEmpty) {
-                          return 'Please enter an amount';
-                        }
-                        if (int.tryParse(val) == null || int.parse(val) <= 0) {
-                          return 'Please enter a valid amount';
-                        }
-                        return null;
-                      },
-                      onChanged: (val) {
-                        setState(() => _withdrawAmount = val);
-                      },
-                    ),
-                    const SizedBox(height: 20),
-                    DropdownButtonFormField<String>(
-                      initialValue: _paymentMethod,
-                      decoration: InputDecoration(
-                        labelText: 'Payment Method',
-                        prefixIcon: Icon(Icons.payment, color: Theme.of(context).primaryColor), // Primary color icon
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2.0),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2.0),
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
-                      items: <String>['PayPal', 'Bank Transfer', 'Crypto']
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          _paymentMethod = newValue!;
-                        });
-                      },
                     ),
-                    const SizedBox(height: 20),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        labelText: '$_paymentMethod Details (e.g., email, account number)',
-                        prefixIcon: Icon(Icons.info, color: Theme.of(context).primaryColor), // Primary color icon
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2.0),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
+                    validator: (val) {
+                      if (val == null || val.isEmpty) {
+                        return 'Please enter an amount';
+                      }
+                      if (int.tryParse(val) == null || int.parse(val) <= 0) {
+                        return 'Please enter a valid amount';
+                      }
+                      return null;
+                    },
+                    onChanged: (val) {
+                      setState(() => _withdrawAmount = val);
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  DropdownButtonFormField<String>(
+                    value: _paymentMethod,
+                    decoration: InputDecoration(
+                      labelText: 'Payment Method',
+                      prefixIcon: Icon(Icons.payment, color: Theme.of(context).primaryColor),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
-                      controller: _paymentDetailsController,
-                      validator: (val) => val!.isEmpty ? 'Please enter payment details' : null,
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2.0),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
                     ),
-                    const SizedBox(height: 20),
-                    _isLoading
-                        ? ShimmerLoading.rectangular(height: 50, width: double.infinity)
-                        : CustomButton(
-                            text: 'Submit Withdrawal',
-                            onPressed: _submitWithdrawal,
-                            startColor: Theme.of(context).primaryColor, // Primary color
-                            endColor: Color.fromARGB(
-                              (((Theme.of(context).primaryColor.value >> 24) & 0xFF) * 0.8).round(),
-                              (Theme.of(context).primaryColor.value >> 16) & 0xFF,
-                              (Theme.of(context).primaryColor.value >> 8) & 0xFF,
-                              Theme.of(context).primaryColor.value & 0xFF,
-                            ), // Slightly lighter primary color
-                          ),
-                  ],
-                ),
+                    items: <String>['PayPal', 'Bank Transfer', 'Crypto']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value, style: Theme.of(context).textTheme.bodyMedium),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        _paymentMethod = newValue!;
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelText: '$_paymentMethod Details (e.g., email, account number)',
+                      prefixIcon: Icon(Icons.info, color: Theme.of(context).primaryColor),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2.0),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                    controller: _paymentDetailsController,
+                    validator: (val) => val!.isEmpty ? 'Please enter payment details' : null,
+                  ),
+                  const SizedBox(height: 30),
+                  _isLoading
+                      ? ShimmerLoading.rectangular(height: 50, width: double.infinity)
+                      : CustomButton(
+                          text: 'Submit Withdrawal',
+                          onPressed: _submitWithdrawal,
+                          startColor: Theme.of(context).primaryColor,
+                          endColor: Theme.of(context).primaryColor.withAlpha((0.8 * 255).round()),
+                        ),
+                ],
               ),
             ),
-          ),
+          ],
         ),
       ),
     );
@@ -213,38 +200,26 @@ class _WithdrawScreenLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white, // White background
-      child: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16.0),
-          child: Card(
-            margin: const EdgeInsets.all(16.0),
-            elevation: 4.0, // Reduced elevation
-            color: Colors.white, // White card background
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.0), // Slightly less rounded corners
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  const ShimmerLoading.rectangular(height: 28, width: 200),
-                  const SizedBox(height: 20),
-                  const ShimmerLoading.rectangular(height: 18, width: 150),
-                  const SizedBox(height: 20),
-                  const ShimmerLoading.rectangular(height: 50),
-                  const SizedBox(height: 20),
-                  const ShimmerLoading.rectangular(height: 50),
-                  const SizedBox(height: 20),
-                  const ShimmerLoading.rectangular(height: 50),
-                  const SizedBox(height: 20),
-                  const ShimmerLoading.rectangular(height: 50),
-                ],
-              ),
-            ),
-          ),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 40),
+            ShimmerLoading.rectangular(height: 28, width: 200),
+            const SizedBox(height: 10),
+            ShimmerLoading.rectangular(height: 16, width: 150),
+            const SizedBox(height: 30),
+            ShimmerLoading.rectangular(height: 50),
+            const SizedBox(height: 20),
+            ShimmerLoading.rectangular(height: 50),
+            const SizedBox(height: 20),
+            ShimmerLoading.rectangular(height: 50),
+            const SizedBox(height: 30),
+            ShimmerLoading.rectangular(height: 50),
+          ],
         ),
       ),
     );

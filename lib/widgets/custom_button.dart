@@ -87,7 +87,7 @@ class _CustomButtonState extends State<CustomButton> with SingleTickerProviderSt
             borderRadius: BorderRadius.circular(widget.borderRadius),
             boxShadow: [
               BoxShadow(
-                color: (widget.endColor ?? const Color(0xFFDA70D6)).withRed((widget.endColor ?? const Color(0xFFDA70D6)).red).withGreen((widget.endColor ?? const Color(0xFFDA70D6)).green).withBlue((widget.endColor ?? const Color(0xFFDA70D6)).blue).withAlpha(102), // Default pink/orchid with alpha
+                color: (widget.endColor ?? const Color(0xFFDA70D6)).withAlpha(102),
                 blurRadius: 8,
                 offset: const Offset(0, 4),
               ),

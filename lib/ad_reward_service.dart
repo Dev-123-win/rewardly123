@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:rewardly_app/user_service.dart';
@@ -25,7 +27,7 @@ class AdRewardService {
         onAdFailedToLoad: (LoadAdError error) {
           _rewardedAd = null;
           // Handle the error appropriately
-          print('RewardedAd failed to load: $error');
+          log('RewardedAd failed to load: $error');
         },
       ),
     );
@@ -33,15 +35,15 @@ class AdRewardService {
 
   void _setRewardedAdCallbacks() {
     _rewardedAd?.fullScreenContentCallback = FullScreenContentCallback(
-      onAdShowedFullScreenContent: (ad) => print('$ad onAdShowedFullScreenContent.'),
+      onAdShowedFullScreenContent: (ad) => log('$ad onAdShowedFullScreenContent.'),
       onAdDismissedFullScreenContent: (ad) {
-        print('$ad onAdDismissedFullScreenContent.');
+        log('$ad onAdDismissedFullScreenContent.');
         ad.dispose();
         _rewardedAd = null;
         loadRewardedAd(); // Load a new ad after the current one is dismissed
       },
       onAdFailedToShowFullScreenContent: (ad, error) {
-        print('$ad onAdFailedToShowFullScreenContent: $error');
+        log('$ad onAdFailedToShowFullScreenContent: $error');
         ad.dispose();
         _rewardedAd = null;
         loadRewardedAd(); // Load a new ad if showing failed
@@ -57,7 +59,7 @@ class AdRewardService {
     if (_rewardedAd != null) {
       _rewardedAd?.show(onUserEarnedReward: (ad, reward) {
         if (_user != null) {
-          rewardUserForAd(uid: _user!.uid, coinsPerAd: reward.amount.toInt());
+          rewardUserForAd(uid: _user.uid, coinsPerAd: reward.amount.toInt());
           onRewardEarned();
         }
       });

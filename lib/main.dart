@@ -39,7 +39,21 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.deepPurple,
           visualDensity: VisualDensity.adaptivePlatformDensity,
-          fontFamily: 'Schyler', // Apply Schyler as the default font
+          fontFamily: 'Lato', // Default font for body text
+          textTheme: const TextTheme(
+            displayLarge: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.bold),
+            displayMedium: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.bold),
+            displaySmall: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.bold),
+            headlineLarge: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.bold),
+            headlineMedium: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.bold),
+            headlineSmall: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.bold),
+            titleLarge: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.bold),
+            titleMedium: TextStyle(fontFamily: 'Lato'),
+            titleSmall: TextStyle(fontFamily: 'Lato'),
+            bodyLarge: TextStyle(fontFamily: 'Lato'),
+            bodyMedium: TextStyle(fontFamily: 'Lato'),
+            labelLarge: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.bold),
+          ),
         ),
         home: const Wrapper(),
       ),

@@ -18,6 +18,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   bool loading = false;
 
   void _showSnackBar(String message, {Color backgroundColor = Colors.green}) {
+    if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message),
@@ -42,9 +43,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               children: <Widget>[
                 Image.asset('assets/AppLogo.png', height: 100), // App Logo
                 const SizedBox(height: 20),
-                const Text(
+                Text(
                   'Earn Smarter. Play. Win. Cashout.',
-                  style: TextStyle(fontSize: 16, color: Colors.black87), // Darker text for readability
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.black87),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 40),
@@ -56,67 +57,65 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         TextFormField(
                           decoration: InputDecoration(
                             hintText: 'Email',
-                            hintStyle: TextStyle(color: Colors.grey[600]), // Lighter hint text
-                            prefixIcon: Icon(Icons.email, color: Colors.grey[700]), // Darker icon
+                            hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.grey[600]),
+                            prefixIcon: Icon(Icons.email, color: Colors.grey[700]),
                             filled: true,
-                            fillColor: Colors.grey[100], // Light fill color
+                            fillColor: Colors.grey[100],
                             enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey[300]!, width: 1.0), // Light border
+                              borderSide: BorderSide(color: Colors.grey[300]!, width: 1.0),
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2.0), // Primary color border
+                              borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2.0),
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                           ),
-                          style: const TextStyle(color: Colors.black87), // Dark text
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.black87),
                           validator: (val) => val!.isEmpty ? 'Enter your email' : null,
                           onChanged: (val) {
                             setState(() => email = val);
                           },
                         ),
-                        const SizedBox(height: 30.0), // Adjusted spacing
+                        const SizedBox(height: 30.0),
                         loading
-                            ? CircularProgressIndicator(color: Theme.of(context).primaryColor) // Use primary color for consistency
+                            ? CircularProgressIndicator(color: Theme.of(context).primaryColor)
                             : CustomButton(
-                                text: 'Send Reset Link', // Dynamic text
+                                text: 'Send Reset Link',
                                 onPressed: () async {
                                   if (_formKey.currentState!.validate()) {
                                     setState(() => loading = true);
+                                    final scaffoldMessenger = ScaffoldMessenger.of(context);
+                                    final navigator = Navigator.of(context);
                                     try {
                                       await _auth.sendPasswordResetEmail(email: email);
-                                      if (mounted) {
-                                        _showSnackBar('Password reset link sent to $email');
-                                        Navigator.pop(context); // Go back to sign in screen
-                                      }
+                                      _showSnackBar('Password reset link sent to $email');
+                                      navigator.pop();
                                     } on FirebaseAuthException catch (e) {
-                                      if (mounted) {
-                                        setState(() {
-                                          error = e.message ?? 'An unknown error occurred.';
-                                          loading = false;
-                                        });
-                                        _showSnackBar(error, backgroundColor: Colors.red);
-                                      }
+                                      setState(() {
+                                        error = e.message ?? 'An unknown error occurred.';
+                                        loading = false;
+                                      });
+                                      scaffoldMessenger.showSnackBar(
+                                          SnackBar(content: Text(error, style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white)), backgroundColor: Colors.red));
                                     } catch (e) {
-                                      if (mounted) {
-                                        setState(() {
-                                          error = 'An unexpected error occurred.';
-                                          loading = false;
-                                        });
-                                        _showSnackBar(error, backgroundColor: Colors.red);
-                                      }
+                                      setState(() {
+                                        error = 'An unexpected error occurred.';
+                                        loading = false;
+                                      });
+                                      scaffoldMessenger.showSnackBar(
+                                          SnackBar(content: Text(error, style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white)), backgroundColor: Colors.red));
                                     }
                                   }
                                 },
                               ),
-                        const SizedBox(height: 20.0), // Adjusted spacing
+                        const SizedBox(height: 20.0),
                         TextButton(
                           onPressed: () {
-                            Navigator.pop(context); // Go back to sign in screen
+                            Navigator.pop(context);
                           },
                           child: Text(
                             'Back to Sign In',
-                            style: TextStyle(color: Theme.of(context).primaryColor, decoration: TextDecoration.underline), // Primary color
+                            style: Theme.of(context).textTheme.labelLarge?.copyWith(color: Theme.of(context).primaryColor, decoration: TextDecoration.underline),
                           ),
                         ),
                       ],

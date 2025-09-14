@@ -47,7 +47,7 @@ class _ExitConfirmationOverlayState extends State<ExitConfirmationOverlay> with 
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
             child: Container(
-              color: Colors.black.withOpacity(0.3), // Dark overlay
+              color: Colors.black.withAlpha(77), // Dark overlay
               width: double.infinity,
               height: double.infinity,
             ),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_auth/firebase_auth.dart'; // Import User
-import 'package:rewardly_app/ad_reward_service.dart'; // Assuming this service handles rewarded ads
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:rewardly_app/ad_reward_service.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart'; // Import for loading indicator
 
 class EarnCoinsScreen extends StatefulWidget {
   const EarnCoinsScreen({super.key});
@@ -12,46 +13,56 @@ class EarnCoinsScreen extends StatefulWidget {
 
 class _EarnCoinsScreenState extends State<EarnCoinsScreen> {
   late AdRewardService _adRewardService;
+  bool _isAdLoading = false; // State to manage loading indicator
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     final user = Provider.of<User?>(context);
     _adRewardService = AdRewardService(user);
+    _loadAd(); // Load ad when screen initializes or dependencies change
+  }
+
+  void _loadAd() async {
+    if (!mounted) return; // Ensure widget is still in the tree
+    setState(() {
+      _isAdLoading = true;
+    });
+    await _adRewardService.loadRewardedAd();
+    if (!mounted) return;
+    setState(() {
+      _isAdLoading = false;
+    });
   }
 
   // Placeholder data for ad cards
   final List<Map<String, dynamic>> _adOffers = [
-    {'title': 'Ad Title 1', 'points': 100},
-    {'title': 'Ad Title 2', 'points': 150},
-    {'title': 'Ad Title 3', 'points': 200},
-    {'title': 'Ad Title 4', 'points': 50},
+    {'title': 'Watch a Short Video', 'points': 100},
+    {'title': 'Complete a Survey', 'points': 150},
+    {'title': 'Install & Play Game', 'points': 200},
+    {'title': 'Daily Bonus Ad', 'points': 50},
   ];
-
-  @override
-  void initState() {
-    super.initState();
-    _adRewardService.loadRewardedAd(); // Load ad when screen initializes
-  }
 
   void _watchAd(int points) {
     _adRewardService.showRewardedAd(
       onRewardEarned: () {
-        // Handle reward logic here, e.g., update user's coins
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('You earned $points points!')),
         );
-        // You might want to update the user's balance via a provider or service
+        // Optionally, reload ads or update UI after reward
+        _loadAd();
       },
       onAdFailedToLoad: () {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Failed to load ad. Please try again.')),
         );
+        _loadAd(); // Try reloading ad
       },
       onAdFailedToShow: () {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Failed to show ad. Please try again.')),
         );
+        _loadAd(); // Try reloading ad
       },
     );
   }
@@ -60,24 +71,31 @@ class _EarnCoinsScreenState extends State<EarnCoinsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Watch & Earn', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text('Watch & Earn', style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(16.0),
-        itemCount: _adOffers.length,
-        itemBuilder: (context, index) {
-          final offer = _adOffers[index];
-          return _AdCard(
-            title: offer['title'],
-            points: offer['points'],
-            onWatchAd: () => _watchAd(offer['points']),
-          );
-        },
-      ),
+      body: _isAdLoading
+          ? const Center(
+              child: SpinKitCircle(
+                color: Colors.deepPurple,
+                size: 50.0,
+              ),
+            )
+          : ListView.builder(
+              padding: const EdgeInsets.all(16.0),
+              itemCount: _adOffers.length,
+              itemBuilder: (context, index) {
+                final offer = _adOffers[index];
+                return _AdCard(
+                  title: offer['title'],
+                  points: offer['points'],
+                  onWatchAd: () => _watchAd(offer['points']),
+                );
+              },
+            ),
     );
   }
 }
@@ -105,10 +123,10 @@ class _AdCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(15.0),
           gradient: LinearGradient(
             colors: [
-              Colors.white.withOpacity(0.8),
-              Colors.white.withOpacity(0.5),
-              Colors.purple.withOpacity(0.1), // Light purple hint
-              Colors.yellow.withOpacity(0.1), // Light yellow hint
+              Colors.white.withAlpha((0.8 * 255).round()),
+              Colors.white.withAlpha((0.5 * 255).round()),
+              Colors.purple.withAlpha((0.1 * 255).round()), // Light purple hint
+              Colors.yellow.withAlpha((0.1 * 255).round()), // Light yellow hint
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -116,7 +134,7 @@ class _AdCard extends StatelessWidget {
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withAlpha((0.05 * 255).round()),
               blurRadius: 8,
               spreadRadius: 2,
               offset: const Offset(0, 4),
@@ -131,11 +149,7 @@ class _AdCard extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                    ),
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.black87),
                   ),
                   const SizedBox(height: 8),
                   Row(
@@ -144,11 +158,7 @@ class _AdCard extends StatelessWidget {
                       const SizedBox(width: 5),
                       Text(
                         '$points Points',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.green[700],
-                          fontWeight: FontWeight.w600,
-                        ),
+                        style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.green[700]),
                       ),
                     ],
                   ),
@@ -164,9 +174,9 @@ class _AdCard extends StatelessWidget {
                 ),
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               ),
-              child: const Text(
+              child: Text(
                 'Watch Ad',
-                style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(color: Colors.white),
               ),
             ),
           ],

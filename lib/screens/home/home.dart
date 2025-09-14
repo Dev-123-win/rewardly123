@@ -1,7 +1,7 @@
+import 'dart:ui'; // Import for ImageFilter
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:rewardly_app/auth_service.dart';
 import 'package:rewardly_app/remote_config_service.dart';
 import 'package:rewardly_app/user_service.dart';
 import 'package:rewardly_app/shared/shimmer_loading.dart';
@@ -94,7 +94,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User?>(context);
-    final AuthService authService = AuthService(); // Access AuthService here
 
     if (user == null) {
       return const HomeScreenLoading();
@@ -114,16 +113,15 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.white, // White AppBar background
         title: Text(
           user.email ?? 'Rewardly App',
-          style: const TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 18), // Darker text
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.black87),
         ),
         elevation: 1.0, // Subtle shadow
         actions: <Widget>[
           GestureDetector(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const WithdrawScreen()),
-              );
+              setState(() {
+                _selectedIndex = 0; // Navigate to WithdrawScreen
+              });
             },
             child: Card(
               color: Colors.grey[100], // Light grey card
@@ -137,7 +135,7 @@ class _HomeState extends State<Home> {
                     const SizedBox(width: 8),
                     Text(
                       'Total Balance\n₹${totalBalanceINR.toStringAsFixed(2)}',
-                      style: const TextStyle(color: Colors.black87, fontSize: 14), // Darker text
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.black87),
                     ),
                   ],
                 ),
@@ -180,11 +178,11 @@ class _HomeState extends State<Home> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               child: Text(
                 'Available Coins',
-                style: TextStyle(color: Colors.black54, fontSize: 16), // Darker text
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.black54),
               ),
             ),
             Padding(
@@ -201,31 +199,21 @@ class _HomeState extends State<Home> {
                           borderRadius: BorderRadius.circular(15.0),
                           gradient: LinearGradient(
                             colors: [
-                              Color.fromARGB((Colors.white.alpha * 0.5).round(), Colors.white.red, Colors.white.green, Colors.white.blue),
-                              Color.fromARGB((Colors.white.alpha * 0.2).round(), Colors.white.red, Colors.white.green, Colors.white.blue),
+                              Colors.white.withAlpha(128),
+                              Colors.white.withAlpha(51),
                             ],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                           ),
                           boxShadow: [
                             BoxShadow(
-                              color: Color.fromARGB(
-                                (((Colors.black.value >> 24) & 0xFF) * 0.1).round(),
-                                (Colors.black.value >> 16) & 0xFF,
-                                (Colors.black.value >> 8) & 0xFF,
-                                Colors.black.value & 0xFF,
-                              ),
+                              color: Colors.black.withAlpha(26),
                               blurRadius: 10,
                               spreadRadius: 2,
                             ),
                           ],
                           border: Border.all(
-                            color: Color.fromARGB(
-                              (((Colors.white.value >> 24) & 0xFF) * 0.2).round(),
-                              (Colors.white.value >> 16) & 0xFF,
-                              (Colors.white.value >> 8) & 0xFF,
-                              Colors.white.value & 0xFF,
-                            ),
+                            color: Colors.white.withAlpha(51),
                           ),
                         ),
                         child: Column(
@@ -235,16 +223,26 @@ class _HomeState extends State<Home> {
                               children: [
                                 Image.asset('assets/coin.png', height: 40, width: 40), // Coin icon
                                 const SizedBox(width: 10),
-                                Text(
-                                  '${coins}K', // Assuming K for thousands, adjust as needed
-                                  style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.black87), // Darker text
+                                RichText(
+                                  text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text: '$coins',
+                                        style: Theme.of(context).textTheme.displaySmall?.copyWith(color: Colors.black87, fontFamily: 'Poppins'),
+                                      ),
+                                      TextSpan(
+                                        text: 'K',
+                                        style: Theme.of(context).textTheme.displaySmall?.copyWith(color: Colors.black87, fontFamily: 'Montserrat'),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
                             const SizedBox(height: 5),
-                            const Text(
+                            Text(
                               'Coins',
-                              style: TextStyle(fontSize: 16, color: Colors.black54), // Darker text
+                              style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.black54),
                             ),
                           ],
                         ),
@@ -266,18 +264,8 @@ class _HomeState extends State<Home> {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      Color.fromARGB(
-                        (((Theme.of(context).primaryColor.value >> 24) & 0xFF) * 0.8).round(),
-                        (Theme.of(context).primaryColor.value >> 16) & 0xFF,
-                        (Theme.of(context).primaryColor.value >> 8) & 0xFF,
-                        Theme.of(context).primaryColor.value & 0xFF,
-                      ),
-                      Color.fromARGB(
-                        (((Theme.of(context).primaryColor.value >> 24) & 0xFF) * 0.6).round(),
-                        (Theme.of(context).primaryColor.value >> 16) & 0xFF,
-                        (Theme.of(context).primaryColor.value >> 8) & 0xFF,
-                        Theme.of(context).primaryColor.value & 0xFF,
-                      ),
+                      Theme.of(context).primaryColor.withAlpha(204),
+                      Theme.of(context).primaryColor.withAlpha(153),
                     ], // Primary color gradient
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
@@ -292,14 +280,14 @@ class _HomeState extends State<Home> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
+                          Text(
                             'Super Offer',
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                            style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.white),
                           ),
                           const SizedBox(height: 5),
                           Text(
                             'Get coin Upto ${RemoteConfigService().coinsPerAd * RemoteConfigService().dailyAdLimit}k', // Example, adjust as needed
-                            style: const TextStyle(fontSize: 14, color: Colors.white70),
+                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white70),
                           ),
                         ],
                       ),
@@ -315,7 +303,7 @@ class _HomeState extends State<Home> {
                         backgroundColor: Colors.white,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                       ),
-                      child: Text('Get now!', style: TextStyle(color: Theme.of(context).primaryColor)), // Primary color text
+                      child: Text('Get now!', style: Theme.of(context).textTheme.labelLarge?.copyWith(color: Theme.of(context).primaryColor)),
                     ),
                   ],
                 ),
@@ -419,71 +407,39 @@ class _HomeState extends State<Home> {
   }) {
     return GestureDetector(
       onTap: onTap,
-      child: Card(
-        elevation: 4.0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-        child: Container(
-          padding: const EdgeInsets.all(15.0),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15.0),
-            gradient: LinearGradient(
-              colors: [
-                Color.fromARGB(
-                  (((Colors.white.value >> 24) & 0xFF) * 0.5).round(),
-                  (Colors.white.value >> 16) & 0xFF,
-                  (Colors.white.value >> 8) & 0xFF,
-                  Colors.white.value & 0xFF,
-                ),
-                Color.fromARGB(
-                  (((Colors.white.value >> 24) & 0xFF) * 0.2).round(),
-                  (Colors.white.value >> 16) & 0xFF,
-                  (Colors.white.value >> 8) & 0xFF,
-                  Colors.white.value & 0xFF,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(15.0),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+          child: Container(
+            padding: const EdgeInsets.all(15.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15.0),
+              color: Colors.white.withOpacity(0.2),
+              border: Border.all(
+                color: Colors.white.withOpacity(0.3),
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Icon(icon, size: 40, color: Colors.white),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      subtitle,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.white70),
+                    ),
+                  ],
                 ),
               ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
             ),
-            boxShadow: [
-              BoxShadow(
-                  color: Color.fromARGB(
-                    (((Colors.black.value >> 24) & 0xFF) * 0.1).round(),
-                    (Colors.black.value >> 16) & 0xFF,
-                    (Colors.black.value >> 8) & 0xFF,
-                    Colors.black.value & 0xFF,
-                  ),
-                blurRadius: 10,
-                spreadRadius: 2,
-              ),
-            ],
-            border: Border.all(
-              color: Color.fromARGB(
-                (((Colors.white.value >> 24) & 0xFF) * 0.2).round(),
-                (Colors.white.value >> 16) & 0xFF,
-                (Colors.white.value >> 8) & 0xFF,
-                Colors.white.value & 0xFF,
-              ),
-            ),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Icon(icon, size: 40, color: Theme.of(context).primaryColor), // Primary color icon
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black87), // Darker text
-                  ),
-                  Text(
-                    subtitle,
-                    style: const TextStyle(fontSize: 12, color: Colors.black54), // Darker text
-                  ),
-                ],
-              ),
-            ],
           ),
         ),
       ),

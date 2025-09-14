@@ -49,18 +49,20 @@ class _AdminPanelState extends State<AdminPanel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Admin Panel'),
-        backgroundColor: Colors.redAccent,
-      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            const SizedBox(height: 40), // Space for status bar
+            Text(
+              'Admin Panel',
+              style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.black87),
+            ),
+            const SizedBox(height: 20),
+            Text(
               'Remote Config Settings',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
             TextFormField(
@@ -93,12 +95,12 @@ class _AdminPanelState extends State<AdminPanel> {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _updateRemoteConfig,
-              child: const Text('Update Remote Config'),
+              child: Text('Update Remote Config', style: Theme.of(context).textTheme.labelLarge?.copyWith(color: Colors.white)),
             ),
             const SizedBox(height: 40),
-            const Text(
+            Text(
               'User Management',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
             ),
             Expanded(
               child: Consumer<UserDataProvider>(
@@ -112,7 +114,7 @@ class _AdminPanelState extends State<AdminPanel> {
                     stream: FirebaseFirestore.instance.collection('users').snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.hasError) {
-                        return Text('Error: ${snapshot.error}');
+                        return Text('Error: ${snapshot.error}', style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.red));
                       }
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const _AdminPanelLoading();
@@ -123,8 +125,8 @@ class _AdminPanelState extends State<AdminPanel> {
                           return Card(
                             margin: const EdgeInsets.symmetric(vertical: 8.0),
                             child: ListTile(
-                              title: Text(data['email'] ?? 'N/A'),
-                              subtitle: Text('Coins: ${data['coins']}, Ads Watched Today: ${data['adsWatchedToday']}'),
+                              title: Text(data['email'] ?? 'N/A', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+                              subtitle: Text('Coins: ${data['coins']}, Ads Watched Today: ${data['adsWatchedToday']}', style: Theme.of(context).textTheme.bodySmall),
                               trailing: IconButton(
                                 icon: const Icon(Icons.delete),
                                 onPressed: () => _confirmDeleteUser(context, document.id, data['email'] ?? 'N/A'),
@@ -145,6 +147,7 @@ class _AdminPanelState extends State<AdminPanel> {
   }
 
   Future<void> _confirmDeleteUser(BuildContext context, String uid, String email) async {
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // User must tap button!
@@ -165,11 +168,9 @@ class _AdminPanelState extends State<AdminPanel> {
               onPressed: () async {
                 Navigator.of(dialogContext).pop(); // Dismiss dialog
                 await FirebaseFirestore.instance.collection('users').doc(uid).delete();
-                if (mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('User "$email" deleted!')),
-                  );
-                }
+                scaffoldMessenger.showSnackBar(
+                  SnackBar(content: Text('User "$email" deleted!')),
+                );
               },
             ),
           ],
