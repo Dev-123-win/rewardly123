@@ -100,30 +100,50 @@ class _HomeState extends State<Home> {
       return const HomeScreenLoading();
     }
 
+    final userDataProvider = Provider.of<UserDataProvider>(context);
+    if (userDataProvider.userData == null) {
+      return const HomeScreenLoading();
+    }
+
+    Map<String, dynamic> userData = userDataProvider.userData!.data() as Map<String, dynamic>;
+    int coins = userData['coins'] ?? 0;
+    double totalBalanceINR = coins / 1000.0; // 1000 coins = 1 INR
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white, // White AppBar background
-        title: GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const ProfileScreen()),
-            );
-          },
-          child: Text(
-            user.email ?? 'Rewardly App',
-            style: const TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 18), // Darker text
-          ),
+        title: Text(
+          user.email ?? 'Rewardly App',
+          style: const TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 18), // Darker text
         ),
         elevation: 1.0, // Subtle shadow
         actions: <Widget>[
-          TextButton.icon(
-            icon: Icon(Icons.logout, color: Theme.of(context).primaryColor), // Primary color icon
-            label: Text('Logout', style: TextStyle(color: Theme.of(context).primaryColor)), // Primary color text
-            onPressed: () async {
-              await authService.signOut();
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const WithdrawScreen()),
+              );
             },
-          )
+            child: Card(
+              color: Colors.grey[100], // Light grey card
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              elevation: 2.0,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                child: Row(
+                  children: [
+                    Icon(Icons.account_balance_wallet, color: Theme.of(context).primaryColor, size: 20), // Primary color icon
+                    const SizedBox(width: 8),
+                    Text(
+                      'Total Balance\n₹${totalBalanceINR.toStringAsFixed(2)}',
+                      style: const TextStyle(color: Colors.black87, fontSize: 14), // Darker text
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
         ],
       ),
       body: _buildScreens()[_selectedIndex],
@@ -153,7 +173,6 @@ class _HomeState extends State<Home> {
 
     Map<String, dynamic> userData = userDataProvider.userData!.data() as Map<String, dynamic>;
     int coins = userData['coins'] ?? 0;
-    double totalBalanceINR = coins / 1000.0; // 1000 coins = 1 INR
 
     return SingleChildScrollView(
       child: Container(
@@ -161,49 +180,6 @@ class _HomeState extends State<Home> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        user.email ?? 'Rewardly App',
-                        style: const TextStyle(color: Colors.black87, fontSize: 16), // Darker text
-                      ),
-                    ],
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const WithdrawScreen()),
-                      );
-                    },
-                    child: Card(
-                      color: Colors.grey[100], // Light grey card
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                      elevation: 2.0,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                        child: Row(
-                          children: [
-                            Icon(Icons.account_balance_wallet, color: Theme.of(context).primaryColor, size: 20), // Primary color icon
-                            const SizedBox(width: 8),
-                            Text(
-                              'Total Balance\n₹${totalBalanceINR.toStringAsFixed(2)}',
-                              style: const TextStyle(color: Colors.black87, fontSize: 14), // Darker text
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               child: Text(
@@ -257,7 +233,7 @@ class _HomeState extends State<Home> {
                           children: [
                             Row(
                               children: [
-                                Image.asset('assets/AppLogo.png', height: 40, width: 40), // Placeholder for coin icon
+                                Image.asset('assets/coin.png', height: 40, width: 40), // Coin icon
                                 const SizedBox(width: 10),
                                 Text(
                                   '${coins}K', // Assuming K for thousands, adjust as needed
@@ -268,67 +244,6 @@ class _HomeState extends State<Home> {
                             const SizedBox(height: 5),
                             const Text(
                               'Coins',
-                              style: TextStyle(fontSize: 16, color: Colors.black54), // Darker text
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: Card(
-                      elevation: 4.0,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-                      child: Container(
-                        padding: const EdgeInsets.all(15.0),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15.0),
-                          gradient: LinearGradient(
-                            colors: [
-                              Color.fromARGB((Colors.white.alpha * 0.5).round(), Colors.white.red, Colors.white.green, Colors.white.blue),
-                              Color.fromARGB((Colors.white.alpha * 0.2).round(), Colors.white.red, Colors.white.green, Colors.white.blue),
-                            ],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color.fromARGB(
-                                (((Colors.black.value >> 24) & 0xFF) * 0.1).round(),
-                                (Colors.black.value >> 16) & 0xFF,
-                                (Colors.black.value >> 8) & 0xFF,
-                                Colors.black.value & 0xFF,
-                              ),
-                              blurRadius: 10,
-                              spreadRadius: 2,
-                            ),
-                          ],
-                          border: Border.all(
-                            color: Color.fromARGB(
-                              (((Colors.white.value >> 24) & 0xFF) * 0.2).round(),
-                              (Colors.white.value >> 16) & 0xFF,
-                              (Colors.white.value >> 8) & 0xFF,
-                              Colors.white.value & 0xFF,
-                            ),
-                          ),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Icon(Icons.diamond, size: 40, color: Theme.of(context).primaryColor), // Primary color icon
-                                const SizedBox(width: 10),
-                                Text(
-                                  '0', // Diamonds are not tracked, so display 0
-                                  style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.black87), // Darker text
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 5),
-                            const Text(
-                              'Diamonds',
                               style: TextStyle(fontSize: 16, color: Colors.black54), // Darker text
                             ),
                           ],
