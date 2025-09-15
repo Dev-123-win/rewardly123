@@ -3,6 +3,42 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:rewardly_app/providers/user_data_provider.dart';
 // import 'package:share_plus/share_plus.dart'; // Removed share_plus import
+import 'package:rewardly_app/shared/shimmer_loading.dart';
+
+class ReferralScreenLoading extends StatelessWidget {
+  const ReferralScreenLoading({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Align(
+              alignment: Alignment.topLeft,
+              child: ShimmerLoading.circular(width: 40, height: 40),
+            ),
+            const SizedBox(height: 10),
+            ShimmerLoading.circular(width: 150, height: 150),
+            const SizedBox(height: 30),
+            ShimmerLoading.rectangular(height: 24, width: double.infinity),
+            const SizedBox(height: 15),
+            ShimmerLoading.rectangular(height: 16, width: double.infinity),
+            const SizedBox(height: 40),
+            ShimmerLoading.rectangular(height: 20, width: 150),
+            const SizedBox(height: 10),
+            ShimmerLoading.rectangular(height: 60, width: double.infinity),
+            const SizedBox(height: 30),
+            ShimmerLoading.rectangular(height: 50, width: double.infinity),
+          ],
+        ),
+      ),
+    );
+  }
+}
 
 class ReferralScreen extends StatelessWidget {
   const ReferralScreen({super.key});
@@ -10,7 +46,13 @@ class ReferralScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userDataProvider = Provider.of<UserDataProvider>(context);
-    final referralCode = userDataProvider.userData?['referral_code'] ?? 'Loading...';
+    final userData = userDataProvider.userData;
+
+    if (userData == null) {
+      return const ReferralScreenLoading(); // Show loading indicator
+    }
+
+    final referralCode = userData['referral_code'] ?? 'Loading...';
 
     return Scaffold(
       backgroundColor: Colors.white,

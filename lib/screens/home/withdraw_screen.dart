@@ -135,7 +135,7 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
                   ),
                   const SizedBox(height: 20),
                   DropdownButtonFormField<String>(
-                    value: _paymentMethod,
+                    initialValue: _paymentMethod,
                     decoration: InputDecoration(
                       labelText: 'Payment Method',
                       prefixIcon: Icon(Icons.payment, color: Theme.of(context).primaryColor),

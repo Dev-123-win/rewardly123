@@ -1,4 +1,3 @@
-import 'dart:ui'; // Import for ImageFilter
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +15,7 @@ import 'package:rewardly_app/screens/home/offer_pro_screen.dart';
 import 'package:rewardly_app/screens/home/read_and_earn_screen.dart';
 import 'package:rewardly_app/screens/home/play_game_screen.dart';
 import 'package:rewardly_app/screens/home/daily_stream_screen.dart';
+import 'package:rewardly_app/screens/empty_screen.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -113,7 +113,7 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.white, // White AppBar background
         title: Text(
           user.email ?? 'Rewardly App',
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.black87),
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.black87, fontSize: 16.0),
         ),
         elevation: 1.0, // Subtle shadow
         actions: <Widget>[
@@ -128,14 +128,14 @@ class _HomeState extends State<Home> {
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
               elevation: 2.0,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                 child: Row(
                   children: [
-                    Icon(Icons.account_balance_wallet, color: Theme.of(context).primaryColor, size: 20), // Primary color icon
-                    const SizedBox(width: 8),
+                    Icon(Icons.account_balance_wallet, color: Theme.of(context).primaryColor, size: 18), // Primary color icon
+                    const SizedBox(width: 6),
                     Text(
                       'Total Balance\n₹${totalBalanceINR.toStringAsFixed(2)}',
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.black87),
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.black87, fontSize: 12.0),
                     ),
                   ],
                 ),
@@ -227,12 +227,12 @@ class _HomeState extends State<Home> {
                                   text: TextSpan(
                                     children: [
                                       TextSpan(
-                                        text: '$coins',
-                                        style: Theme.of(context).textTheme.displaySmall?.copyWith(color: Colors.black87, fontFamily: 'Poppins'),
+                                        text: (coins / 1000).toStringAsFixed(2),
+                                        style: Theme.of(context).textTheme.displaySmall?.copyWith(color: Colors.black87, fontFamily: 'Poppins', fontSize: 24.0),
                                       ),
                                       TextSpan(
-                                        text: 'K',
-                                        style: Theme.of(context).textTheme.displaySmall?.copyWith(color: Colors.black87, fontFamily: 'Montserrat'),
+                                        text: 'k',
+                                        style: Theme.of(context).textTheme.displaySmall?.copyWith(color: Colors.black87, fontFamily: 'RobloxFont', fontSize: 18.0),
                                       ),
                                     ],
                                   ),
@@ -296,7 +296,7 @@ class _HomeState extends State<Home> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const EarnCoinsScreen()),
+                          MaterialPageRoute(builder: (context) => const EmptyScreen()),
                         );
                       },
                       style: ElevatedButton.styleFrom(
@@ -407,39 +407,38 @@ class _HomeState extends State<Home> {
   }) {
     return GestureDetector(
       onTap: onTap,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(15.0),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
-          child: Container(
-            padding: const EdgeInsets.all(15.0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15.0),
-              color: Colors.white.withOpacity(0.2),
-              border: Border.all(
-                color: Colors.white.withOpacity(0.3),
+      child: Card(
+        elevation: 4.0,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+        child: Container(
+          padding: const EdgeInsets.all(15.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15.0),
+            gradient: LinearGradient(
+              colors: [startColor, endColor],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Icon(icon, size: 40, color: Colors.white),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    subtitle,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.white70),
+                  ),
+                ],
               ),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Icon(icon, size: 40, color: Colors.white),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      subtitle,
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.white70),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+            ],
           ),
         ),
       ),

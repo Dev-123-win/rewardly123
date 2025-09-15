@@ -194,3 +194,6 @@ flutter_launcher_icons:
         - asset: assets/fonts/Poppins-ThinItalic.ttf
           style: italic
           weight: 100
+    - family: RobloxFont
+      fonts:
+        - asset: assets/fonts/RobloxFont-Regular.ttf

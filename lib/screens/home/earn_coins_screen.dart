@@ -35,13 +35,11 @@ class _EarnCoinsScreenState extends State<EarnCoinsScreen> {
     });
   }
 
-  // Placeholder data for ad cards
-  final List<Map<String, dynamic>> _adOffers = [
-    {'title': 'Watch a Short Video', 'points': 100},
-    {'title': 'Complete a Survey', 'points': 150},
-    {'title': 'Install & Play Game', 'points': 200},
-    {'title': 'Daily Bonus Ad', 'points': 50},
-  ];
+  // Data for ad cards - 10 cards, each offering 100 coins
+  final List<Map<String, dynamic>> _adOffers = List.generate(
+    10,
+    (index) => {'title': 'Watch an ad', 'points': 100},
+  );
 
   void _watchAd(int points) {
     _adRewardService.showRewardedAd(
@@ -175,7 +173,7 @@ class _AdCard extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               ),
               child: Text(
-                'Watch Ad',
+                'Watch Ad ($points Coins)',
                 style: Theme.of(context).textTheme.labelLarge?.copyWith(color: Colors.white),
               ),
             ),
