@@ -28,12 +28,8 @@ class ProfileScreen extends StatelessWidget {
             CircleAvatar(
               radius: 60,
               backgroundColor: Colors.grey.shade200,
-              backgroundImage: userData['profile_picture'] != null
-                  ? NetworkImage(userData['profile_picture'])
-                  : null,
-              child: userData['profile_picture'] == null
-                  ? Icon(Icons.person, size: 60, color: Colors.grey.shade600)
-                  : null,
+              // Always show a default icon, as fetching profile pictures from Firebase is not desired.
+              child: Icon(Icons.person, size: 60, color: Colors.grey.shade600),
             ),
             const SizedBox(height: 15),
             Text(
