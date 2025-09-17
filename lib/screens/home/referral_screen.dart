@@ -54,7 +54,7 @@ class ReferralScreen extends StatelessWidget {
       return const ReferralScreenLoading();
     }
 
-    final referralCode = userData['referral_code'] ?? 'Loading...';
+    final referralCode = userData['referralCode'] ?? 'Loading...';
 
     return Scaffold(
       backgroundColor: Colors.white,

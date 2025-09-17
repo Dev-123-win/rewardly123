@@ -50,16 +50,20 @@ class UserService {
 
   // Reset daily spin wheel counts if date has changed
   Future<void> resetSpinWheelDailyCounts(String uid) async {
-    final userData = await _firestore.collection('users').doc(uid).get();
-    final lastSpinWheelDate = userData['lastSpinWheelDate'];
-    final today = DateTime.now().toIso8601String().substring(0, 10);
+    final userDataSnapshot = await _firestore.collection('users').doc(uid).get();
+    final userData = userDataSnapshot.data();
 
-    if (lastSpinWheelDate != today) {
-      await _firestore.collection('users').doc(uid).update({
-        'spinWheelFreeSpinsToday': 3,
-        'spinWheelAdSpinsToday': 0,
-        'lastSpinWheelDate': today,
-      });
+    if (userData != null) {
+      final lastSpinWheelDate = userData['lastSpinWheelDate'];
+      final today = DateTime.now().toIso8601String().substring(0, 10);
+
+      if (lastSpinWheelDate == null || lastSpinWheelDate != today) {
+        await _firestore.collection('users').doc(uid).update({
+          'spinWheelFreeSpinsToday': 3,
+          'spinWheelAdSpinsToday': 0,
+          'lastSpinWheelDate': today,
+        });
+      }
     }
   }
 

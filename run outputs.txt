@@ -1,0 +1,615 @@
+Connected devices:
+sdk gphone64 x86 64 (mobile) • emulator-5554  • android-x64 • Android 16
+(API 36) (emulator)
+sdk gphone64 x86 64 (mobile) • localhost:5555 • android-x64 • Android 16
+(API 36) (emulator)
+[1]: sdk gphone64 x86 64 (emulator-5554)
+[2]: sdk gphone64 x86 64 (localhost:5555)
+Please choose one (or "q" to quit): 1
+Launching lib/main.dart on sdk gphone64 x86 64 in debug mode...
+Running Gradle task 'assembleDebug'...                             35.8s
+✓ Built build/app/outputs/flutter-apk/app-debug.apk
+Installing build/app/outputs/flutter-apk/app-debug.apk...        1,140ms
+D/FlutterJNI( 6944): Beginning load of flutter...
+D/FlutterJNI( 6944): flutter (null) was loaded normally!
+I/flutter ( 6944): [IMPORTANT:flutter/shell/platform/android/android_conte
+xt_gl_impeller.cc(104)] Using the Impeller rendering backend (OpenGLES).  Syncing files to device sdk gphone64 x86 64...                     119ms
+
+Flutter run key commands.
+r Hot reload. 🔥🔥🔥
+R Hot restart.
+h List all available interactive commands.
+d Detach (terminate "flutter run" but leave application running).
+c Clear the screen
+q Quit (terminate the application on the device).
+
+A Dart VM Service on sdk gphone64 x86 64 is available at:
+http://127.0.0.1:42677/AyB9gp7LDZ0=/
+I/Choreographer( 6944): Skipped 63 frames!  The application may be doing t
+oo much work on its main thread.                                          D/WindowLayoutComponentImpl( 6944): Register WindowLayoutInfoListener on C
+ontext=com.supreet.rewardly.MainActivity@10f99fd, of which baseContext=android.app.ContextImpl@8d75ce4                                              The Flutter DevTools debugger and profiler on sdk gphone64 x86 64 is
+available at:
+http://127.0.0.1:9101?uri=http://127.0.0.1:42677/AyB9gp7LDZ0=/
+W/FA-Ads  ( 6944): Analytics storage consent denied; will not get app inst
+ance id                                                                   I/FirebaseApp( 6944): Device unlocked: initializing all Firebase APIs for 
+app [DEFAULT]                                                             I/upreet.rewardly( 6944): AssetManager2(0x7faf9e93dd38) locale list changi
+ng from [] to [en-US]                                                     I/upreet.rewardly( 6944): AssetManager2(0x7faf9e947018) locale list changi
+ng from [] to [en-US]                                                     I/WebViewFactory( 6944): Loading com.google.android.webview version 133.0.
+6943.137 (code 694313738)                                                 I/upreet.rewardly( 6944): AssetManager2(0x7faf9e94be38) locale list changi
+ng from [] to [en-US]                                                     I/upreet.rewardly( 6944): AssetManager2(0x7faf9e947978) locale list changi
+ng from [] to [en-US]                                                     I/upreet.rewardly( 6944): AssetManager2(0x7faf9e94b7f8) locale list changi
+ng from [] to [en-US]                                                     I/upreet.rewardly( 6944): AssetManager2(0x7faf9e9498b8) locale list changi
+ng from [] to [en-US]                                                     I/upreet.rewardly( 6944): AssetManager2(0x7faf9e948c38) locale list changi
+ng from [] to [en-US]                                                     I/upreet.rewardly( 6944): AssetManager2(0x7faf9e947c98) locale list changi
+ng from [] to [en-US]                                                     I/upreet.rewardly( 6944): AssetManager2(0x7faf9e94a218) locale list changi
+ng from [] to [en-US]                                                     V/ResourcesManager( 6944): The following library key has been added: Resou
+rcesKey{ mHash=cf75b124 mResDir=null mSplitDirs=[] mOverlayDirs=[] mLibDirs=[/data/app/~~lEc2O74RuRQowGpBJntt5A==/com.google.android.webview-4EAylKFfBftpKEDyM2PYYg==/WebViewGoogle.apk,/data/app/~~0qzbqIMc27hxdtXH4boqmg==/com.google.android.trichromelibrary_694313738-2ThuaAO86o4OTtHD3gAZSw==/TrichromeLibrary.apk] mDisplayId=0 mOverrideConfig=v36 mCompatInfo={440dpi always-compat} mLoaders=[]}                                                  W/upreet.rewardly( 6944): Failed to find entry 'classes.dex': Entry not fo
+und                                                                       D/nativeloader( 6944): Configuring clns-10 for other apk /data/app/~~0qzbq
+IMc27hxdtXH4boqmg==/com.google.android.trichromelibrary_694313738-2ThuaAO86o4OTtHD3gAZSw==/TrichromeLibrary.apk. target_sdk_version=34, uses_libraries=ALL, library_path=/data/app/~~lEc2O74RuRQowGpBJntt5A==/com.google.android.webview-4EAylKFfBftpKEDyM2PYYg==/lib/x86_64:/data/app/~~lEc2O74RuRQowGpBJntt5A==/com.google.android.webview-4EAylKFfBftpKEDyM2PYYg==/WebViewGoogle.apk!/lib/x86_64:/data/app/~~0qzbqIMc27hxdtXH4boqmg==/com.google.android.trichromelibrary_694313738-2ThuaAO86o4OTtHD3gAZSw==/TrichromeLibrary.apk!/lib/x86_64, permitted_path=/data:/mnt/expand                              D/ApplicationLoaders( 6944): Returning zygote-cached class loader: /system
+_ext/framework/androidx.window.extensions.jar                             D/nativeloader( 6944): Configuring clns-11 for other apk /data/app/~~lEc2O
+74RuRQowGpBJntt5A==/com.google.android.webview-4EAylKFfBftpKEDyM2PYYg==/WebViewGoogle.apk. target_sdk_version=34, uses_libraries=, library_path=/data/app/~~lEc2O74RuRQowGpBJntt5A==/com.google.android.webview-4EAylKFfBftpKEDyM2PYYg==/lib/x86_64:/data/app/~~lEc2O74RuRQowGpBJntt5A==/com.google.android.webview-4EAylKFfBftpKEDyM2PYYg==/WebViewGoogle.apk!/lib/x86_64:/data/app/~~0qzbqIMc27hxdtXH4boqmg==/com.google.android.trichromelibrary_694313738-2ThuaAO86o4OTtHD3gAZSw==/TrichromeLibrary.apk!/lib/x86_64, permitted_path=/data:/mnt/expand                                                       I/cr_WVCFactoryProvider( 6944): version=133.0.6943.137 (694313738) minSdkV
+ersion=29 isBundle=false multiprocess=true packageId=2                    D/nativeloader( 6944): Load /data/app/~~0qzbqIMc27hxdtXH4boqmg==/com.googl
+e.android.trichromelibrary_694313738-2ThuaAO86o4OTtHD3gAZSw==/TrichromeLibrary.apk!/lib/x86_64/libmonochrome_64.so using class loader ns clns-11 (caller=/data/app/~~lEc2O74RuRQowGpBJntt5A==/com.google.android.webview-4EAylKFfBftpKEDyM2PYYg==/WebViewGoogle.apk): ok                                D/nativeloader( 6944): Load /system/lib64/libwebviewchromium_plat_support.
+so using class loader ns clns-11 (caller=/data/app/~~lEc2O74RuRQowGpBJntt5A==/com.google.android.webview-4EAylKFfBftpKEDyM2PYYg==/WebViewGoogle.apk): ok                                                                      I/Choreographer( 6944): Skipped 97 frames!  The application may be doing t
+oo much work on its main thread.                                          I/cr_LibraryLoader( 6944): Successfully loaded native library
+I/cr_CachingUmaRecorder( 6944): Flushed 6 samples from 6 histograms, 0 sam
+ples were dropped.                                                        I/cr_CombinedPProvider( 6944): #registerProvider() provider:WV.C8@7f70fee 
+isPolicyCacheEnabled:false policyProvidersSize:0                          I/cr_PolicyProvider( 6944): #setManagerAndSource() 0
+I/cr_CombinedPProvider( 6944): #linkNativeInternal() 1
+I/cr_AppResProvider( 6944): #getApplicationRestrictionsFromUserManager() B
+undle[EMPTY_PARCEL]                                                       I/cr_PolicyProvider( 6944): #notifySettingsAvailable() 0
+I/cr_CombinedPProvider( 6944): #onSettingsAvailable() 0
+I/cr_CombinedPProvider( 6944): #flushPolicies()
+I/upreet.rewardly( 6944): AssetManager2(0x7faf9e953b38) locale list changi
+ng from [] to [en-US]                                                     I/upreet.rewardly( 6944): AssetManager2(0x7faf9e94f678) locale list changi
+ng from [] to [en-US]                                                     D/ProfileInstaller( 6944): Installing profile for com.supreet.rewardly
+I/CameraManagerGlobal( 6944): Connecting to camera service
+I/upreet.rewardly( 6944): AssetManager2(0x7faf9e9531d8) locale list changi
+ng from [] to [en-US]                                                     E/zzgah   ( 6944): SafeAtomicHelper is broken!
+E/zzgah   ( 6944): java.lang.ExceptionInInitializerError
+E/zzgah   ( 6944):      at com.google.android.gms.internal.ads.zzgah.<clin
+it>(com.google.android.gms:play-services-ads@@24.1.0:2)                   E/zzgah   ( 6944):      at com.google.android.gms.internal.ads.zzgba.zza(c
+om.google.android.gms:play-services-ads@@24.1.0:1)                        E/zzgah   ( 6944):      at com.google.android.gms.internal.ads.zzdsu.zzo(c
+om.google.android.gms:play-services-ads@@24.1.0:48)                       E/zzgah   ( 6944):      at com.google.android.gms.internal.ads.zzdsr.run(c
+om.google.android.gms:play-services-ads@@24.1.0:1)                        E/zzgah   ( 6944):      at java.util.concurrent.ThreadPoolExecutor.runWork
+er(ThreadPoolExecutor.java:1156)                                          E/zzgah   ( 6944):      at java.util.concurrent.ThreadPoolExecutor$Worker.
+run(ThreadPoolExecutor.java:651)                                          E/zzgah   ( 6944):      at java.lang.Thread.run(Thread.java:1119)
+E/zzgah   ( 6944): Caused by: java.lang.RuntimeException: java.lang.Illega
+lAccessException: Class com.google.android.gms.internal.ads.zzgae can not access a member of class com.google.android.gms.internal.ads.zzgah with modifiers "private volatile"                                                E/zzgah   ( 6944):      at java.util.concurrent.atomic.AtomicReferenceFiel
+dUpdater$AtomicReferenceFieldUpdaterImpl.<init>(AtomicReferenceFieldUpdater.java:361)                                                               E/zzgah   ( 6944):      at java.util.concurrent.atomic.AtomicReferenceFiel
+dUpdater.newUpdater(AtomicReferenceFieldUpdater.java:115)                 E/zzgah   ( 6944):      at com.google.android.gms.internal.ads.zzgae.<clin
+it>(com.google.android.gms:play-services-ads@@24.1.0:2)                   E/zzgah   ( 6944):      ... 7 more
+E/zzgah   ( 6944): Caused by: java.lang.IllegalAccessException: Class com.
+google.android.gms.internal.ads.zzgae can not access a member of class com.google.android.gms.internal.ads.zzgah with modifiers "private volatile"  E/zzgah   ( 6944):      at sun.reflect.Reflection.ensureMemberAccess(Refle
+ction.java:125)                                                           E/zzgah   ( 6944):      at sun.reflect.misc.ReflectUtil.ensureMemberAccess
+(ReflectUtil.java:100)                                                    E/zzgah   ( 6944):      at java.util.concurrent.atomic.AtomicReferenceFiel
+dUpdater$AtomicReferenceFieldUpdaterImpl.<init>(AtomicReferenceFieldUpdater.java:343)                                                               E/zzgah   ( 6944):      ... 9 more
+D/CompatChangeReporter( 6944): Compat change id reported: 288912692; UID 1
+0217; state: ENABLED                                                      W/cr_media( 6944): BLUETOOTH_CONNECT permission is missing.
+W/cr_media( 6944): getBluetoothAdapter() requires BLUETOOTH permission
+W/cr_media( 6944): registerBluetoothIntentsIfNeeded: Requires BLUETOOTH pe
+rmission                                                                  W/libc    ( 6944): Access denied finding property "vendor.mesa.log"
+W/libc    ( 6944): Access denied finding property "vendor.mesa.log.file"
+E/MESA    ( 6944): Failed to open rendernode: No such file or directory
+D/InsetsController( 6944): hide(ime(), fromIme=false)
+I/ImeTracker( 6944): com.supreet.rewardly:5bb6a456: onCancelled at PHASE_C
+LIENT_ALREADY_HIDDEN                                                      D/vulkan  ( 6944): searching for layers in '/data/app/~~prXlAXRWYTJsmJg96S
+wDHA==/com.supreet.rewardly-Vu7YwmhHp9R7O2GqlUi5cg==/lib/x86_64'          D/vulkan  ( 6944): searching for layers in '/data/app/~~prXlAXRWYTJsmJg96S
+wDHA==/com.supreet.rewardly-Vu7YwmhHp9R7O2GqlUi5cg==/base.apk!/lib/x86_64'W/libc    ( 6944): Access denied finding property "vendor.mesa.vk.trace.pe
+r.submit"                                                                 W/libc    ( 6944): Access denied finding property "vendor.mesa.gallium.pri
+nt.optio"                                                                 W/libc    ( 6944): Access denied finding property "vendor.mesa.vk.trace.fr
+ame"                                                                      W/libc    ( 6944): Access denied finding property "vendor.mesa.vk.wsi.head
+less.swa"                                                                 W/upreet.rewardly( 6944): Verification of boolean com.google.android.gms.i
+nternal.appset.zzb.onTransact(int, android.os.Parcel, android.os.Parcel, int) took 136.489ms (183.16 bytecodes/s) (0B arena alloc)                  W/chromium( 6944): [WARNING:viz_main_impl.cc(85)] VizNullHypothesis is dis
+abled (not a warning)                                                     W/upreet.rewardly( 6944): Suspending all threads took: 14.789ms
+I/upreet.rewardly( 6944): Background concurrent mark compact GC freed 7445
+KB AllocSpace bytes, 24(652KB) LOS objects, 49% free, 5777KB/11MB, paused 18.176ms,5.564ms total 390.558ms                                          I/Ads     ( 6944): JS: The jsLoaded GMSG has been sent (https://googleads.
+g.doubleclick.net/mads/static/mad/sdk/native/production/sdk-core-v40-impl.html:984)                                                                 I/chromium( 6944): [INFO:CONSOLE(984)] "The jsLoaded GMSG has been sent", 
+source: https://googleads.g.doubleclick.net/mads/static/mad/sdk/native/production/sdk-core-v40-impl.html (984)                                      I/ImeTracker( 6944): com.supreet.rewardly:f10da844: onRequestShow at ORIGI
+N_CLIENT reason SHOW_SOFT_INPUT fromUser false                            D/InsetsController( 6944): show(ime(), fromIme=false)
+D/InsetsController( 6944): Setting requestedVisibleTypes to -1 (was -9)
+D/InputConnectionAdaptor( 6944): The input method toggled cursor monitorin
+g on                                                                      W/InteractionJankMonitor( 6944): Initializing without READ_DEVICE_CONFIG p
+ermission. enabled=false, interval=1, missedFrameThreshold=3, frameTimeThreshold=64, package=com.supreet.rewardly                                   I/ImeTracker( 6944): com.supreet.rewardly:f10da844: onShown
+I/ImeTracker( 6944): com.supreet.rewardly:fb608df7: onRequestShow at ORIGI
+N_CLIENT reason SHOW_SOFT_INPUT fromUser false                            D/InsetsController( 6944): show(ime(), fromIme=false)
+I/ImeTracker( 6944): com.supreet.rewardly:fb608df7: onCancelled at PHASE_C
+LIENT_APPLY_ANIMATION                                                     I/ImeTracker( 6944): com.supreet.rewardly:afaa6fbf: onRequestShow at ORIGI
+N_CLIENT reason SHOW_SOFT_INPUT fromUser false                            D/InsetsController( 6944): show(ime(), fromIme=false)
+I/ImeTracker( 6944): com.supreet.rewardly:afaa6fbf: onCancelled at PHASE_C
+LIENT_APPLY_ANIMATION                                                     I/ImeTracker( 6944): com.supreet.rewardly:1a0ef625: onRequestShow at ORIGI
+N_CLIENT reason SHOW_SOFT_INPUT fromUser false                            D/InsetsController( 6944): show(ime(), fromIme=false)
+I/ImeTracker( 6944): com.supreet.rewardly:1a0ef625: onCancelled at PHASE_C
+LIENT_APPLY_ANIMATION                                                     D/InputConnectionAdaptor( 6944): The input method toggled cursor monitorin
+g on                                                                      I/FirebaseAuth( 6944): Logging in as supreetelectricals112@gmail.com with 
+empty reCAPTCHA token                                                     W/System  ( 6944): Ignoring header X-Firebase-Locale because its value was
+ null.                                                                    I/ImeTracker( 6944): com.supreet.rewardly:177ae261: onRequestHide at ORIGI
+N_CLIENT reason HIDE_SOFT_INPUT fromUser false                            D/InsetsController( 6944): hide(ime(), fromIme=false)
+W/WindowOnBackDispatcher( 6944): sendCancelIfRunning: isInProgress=false c
+allback=android.view.ImeBackAnimationController@db26151                   D/InsetsController( 6944): Setting requestedVisibleTypes to -9 (was -1)
+D/CompatChangeReporter( 6944): Compat change id reported: 395521150; UID 1
+0217; state: ENABLED                                                      W/System  ( 6944): Ignoring header X-Firebase-Locale because its value was
+ null.                                                                    I/ImeTracker( 6944): system_server:1d2a9e88: onCancelled at PHASE_CLIENT_O
+N_CONTROLS_CHANGED                                                        D/FirebaseAuth( 6944): Notifying id token listeners about user ( 26lq8bs7Q
+GY8Fg4UZcl4iU50IwE3 ).                                                    D/FirebaseAuth( 6944): Notifying auth state listeners about user ( 26lq8bs
+7QGY8Fg4UZcl4iU50IwE3 ).                                                  W/DynamiteModule( 6944): Local module descriptor class for com.google.andr
+oid.gms.providerinstaller.dynamite not found.                             I/DynamiteModule( 6944): Considering local module com.google.android.gms.p
+roviderinstaller.dynamite:0 and remote module com.google.android.gms.providerinstaller.dynamite:0                                                   W/ProviderInstaller( 6944): Failed to load providerinstaller module: No ac
+ceptable module com.google.android.gms.providerinstaller.dynamite found. Local version is 0 and remote version is 0.                                I/upreet.rewardly( 6944): AssetManager2(0x7faf9e971958) locale list changi
+ng from [] to [en-US]                                                     D/ApplicationLoaders( 6944): Returning zygote-cached class loader: /system
+/framework/org.apache.http.legacy.jar                                     D/ApplicationLoaders( 6944): Returning zygote-cached class loader: /system
+/framework/com.android.media.remotedisplay.jar                            D/ApplicationLoaders( 6944): Returning zygote-cached class loader: /system
+/framework/com.android.location.provider.jar                              D/ApplicationLoaders( 6944): Returning zygote-cached class loader: /system
+_ext/framework/androidx.window.extensions.jar                             D/ApplicationLoaders( 6944): Returning zygote-cached class loader: /system
+_ext/framework/androidx.window.sidecar.jar                                D/nativeloader( 6944): InitLlndkLibrariesProduct: libEGL.so:libGLESv1_CM.s
+o:libGLESv2.so:libGLESv3.so:libRS.so:libandroid_net.so:libapexsupport.so:libavf.so:libbinder_ndk.so:libc.so:libcgrouprc.so:libclang_rt.asan-x86_64-android.so:libcom.android.tethering.connectivity_native.so:libdl.so:libft2.so:liblog.so:libm.so:libmediandk.so:libnativewindow.so:libneuralnetworks.so:libselinux.so:libsync.so:libvendorsupport.so:libvndksupport.so:libvulkan.so                                                                       D/nativeloader( 6944): Configuring product-clns-12 for unbundled product a
+pk /product/priv-app/PrebuiltGmsCore/PrebuiltGmsCore.apk. target_sdk_version=35, uses_libraries=, library_path=/product/priv-app/PrebuiltGmsCore/lib/x86_64:/product/priv-app/PrebuiltGmsCore/PrebuiltGmsCore.apk!/lib/x86_64:/product/lib64:/system/product/lib64, permitted_path=/data:/mnt/expand:/data/user/0/com.google.android.gms:/product/lib64:/system/product/lib64     D/nativeloader( 6944): InitVndkspLibrariesProduct: VNDK is deprecated with
+ product                                                                  I/upreet.rewardly( 6944): Waiting for a blocking GC ClassLinker
+I/upreet.rewardly( 6944): Background concurrent mark compact GC freed 4430
+KB AllocSpace bytes, 14(568KB) LOS objects, 49% free, 6304KB/12MB, paused 991us,9.413ms total 146.679ms                                             I/upreet.rewardly( 6944): WaitForGcToComplete blocked ClassLinker on Backg
+round for 26.571ms                                                        W/ProviderInstaller( 6944): Failed to report request stats: com.google.and
+roid.gms.common.security.ProviderInstallerImpl.reportRequestStats [class android.content.Context, long, long]                                       D/nativeloader( 6944): Load /product/priv-app/PrebuiltGmsCore/PrebuiltGmsC
+ore.apk!/lib/x86_64/libconscrypt_gmscore_jni.so using class loader ns product-clns-12 (caller=/product/priv-app/PrebuiltGmsCore/PrebuiltGmsCore.apk!classes3.dex): ok                                                         V/NativeCrypto( 6944): Registering com/google/android/gms/org/conscrypt/Na
+tiveCrypto's 308 native methods...                                        E/GoogleApiManager( 6944): Failed to get service from broker. 
+E/GoogleApiManager( 6944): java.lang.SecurityException: Unknown calling pa
+ckage name 'com.google.android.gms'.                                      E/GoogleApiManager( 6944):      at android.os.Parcel.createExceptionOrNull
+(Parcel.java:3340)                                                        E/GoogleApiManager( 6944):      at android.os.Parcel.createException(Parce
+l.java:3324)                                                              E/GoogleApiManager( 6944):      at android.os.Parcel.readException(Parcel.
+java:3307)                                                                E/GoogleApiManager( 6944):      at android.os.Parcel.readException(Parcel.
+java:3249)                                                                E/GoogleApiManager( 6944):      at asrs.a(:com.google.android.gms@25083403
+8@25.08.34 (260800-739221510):36)                                         E/GoogleApiManager( 6944):      at aspz.z(:com.google.android.gms@25083403
+8@25.08.34 (260800-739221510):143)                                        E/GoogleApiManager( 6944):      at arxi.run(:com.google.android.gms@250834
+038@25.08.34 (260800-739221510):54)                                       E/GoogleApiManager( 6944):      at android.os.Handler.handleCallback(Handl
+er.java:995)                                                              E/GoogleApiManager( 6944):      at android.os.Handler.dispatchMessage(Hand
+ler.java:103)                                                             E/GoogleApiManager( 6944):      at bzmg.my(:com.google.android.gms@2508340
+38@25.08.34 (260800-739221510):1)                                         E/GoogleApiManager( 6944):      at bzmg.dispatchMessage(:com.google.androi
+d.gms@250834038@25.08.34 (260800-739221510):5)                            E/GoogleApiManager( 6944):      at android.os.Looper.loopOnce(Looper.java:
+248)                                                                      E/GoogleApiManager( 6944):      at android.os.Looper.loop(Looper.java:338)
+E/GoogleApiManager( 6944):      at android.os.HandlerThread.run(HandlerThr
+ead.java:85)                                                              W/CondFlagRegistrar( 6944): Failed to register com.google.android.gms.prov
+iderinstaller#com.google.android.gms                                      W/CondFlagRegistrar( 6944): eudb: 17: 17: API: Phenotype.API is not availa
+ble on this device. Connection failed with: ConnectionResult{statusCode=DEVELOPER_ERROR, resolution=null, message=null}                             W/CondFlagRegistrar( 6944):     at eudd.a(:com.google.android.gms@25083403
+8@25.08.34 (260800-739221510):13)                                         W/CondFlagRegistrar( 6944):     at fodf.d(:com.google.android.gms@25083403
+8@25.08.34 (260800-739221510):3)                                          W/CondFlagRegistrar( 6944):     at fodh.run(:com.google.android.gms@250834
+038@25.08.34 (260800-739221510):130)                                      W/CondFlagRegistrar( 6944):     at fofn.execute(:com.google.android.gms@25
+0834038@25.08.34 (260800-739221510):1)                                    W/CondFlagRegistrar( 6944):     at fodx.h(:com.google.android.gms@25083403
+8@25.08.34 (260800-739221510):1)                                          W/CondFlagRegistrar( 6944):     at fodx.l(:com.google.android.gms@25083403
+8@25.08.34 (260800-739221510):101)                                        W/CondFlagRegistrar( 6944):     at fodx.p(:com.google.android.gms@25083403
+8@25.08.34 (260800-739221510):19)                                         W/CondFlagRegistrar( 6944):     at emtb.hJ(:com.google.android.gms@2508340
+38@25.08.34 (260800-739221510):35)                                        W/CondFlagRegistrar( 6944):     at ebcn.run(:com.google.android.gms@250834
+038@25.08.34 (260800-739221510):14)                                       W/CondFlagRegistrar( 6944):     at fofn.execute(:com.google.android.gms@25
+0834038@25.08.34 (260800-739221510):1)                                    W/CondFlagRegistrar( 6944):     at ebco.b(:com.google.android.gms@25083403
+8@25.08.34 (260800-739221510):18)                                         W/CondFlagRegistrar( 6944):     at ebdd.b(:com.google.android.gms@25083403
+8@25.08.34 (260800-739221510):36)                                         W/CondFlagRegistrar( 6944):     at ebdf.d(:com.google.android.gms@25083403
+8@25.08.34 (260800-739221510):25)                                         W/CondFlagRegistrar( 6944):     at aruq.c(:com.google.android.gms@25083403
+8@25.08.34 (260800-739221510):9)                                          W/CondFlagRegistrar( 6944):     at arxg.q(:com.google.android.gms@25083403
+8@25.08.34 (260800-739221510):48)                                         W/CondFlagRegistrar( 6944):     at arxg.d(:com.google.android.gms@25083403
+8@25.08.34 (260800-739221510):10)                                         W/CondFlagRegistrar( 6944):     at arxg.g(:com.google.android.gms@25083403
+8@25.08.34 (260800-739221510):211)                                        W/CondFlagRegistrar( 6944):     at arxg.onConnectionFailed(:com.google.and
+roid.gms@250834038@25.08.34 (260800-739221510):2)                         W/CondFlagRegistrar( 6944):     at arxi.run(:com.google.android.gms@250834
+038@25.08.34 (260800-739221510):82)                                       W/CondFlagRegistrar( 6944):     at android.os.Handler.handleCallback(Handl
+er.java:995)                                                              W/CondFlagRegistrar( 6944):     at android.os.Handler.dispatchMessage(Hand
+ler.java:103)                                                             W/CondFlagRegistrar( 6944):     at bzmg.my(:com.google.android.gms@2508340
+38@25.08.34 (260800-739221510):1)                                         W/CondFlagRegistrar( 6944):     at bzmg.dispatchMessage(:com.google.androi
+d.gms@250834038@25.08.34 (260800-739221510):5)                            W/CondFlagRegistrar( 6944):     at android.os.Looper.loopOnce(Looper.java:
+248)                                                                      W/CondFlagRegistrar( 6944):     at android.os.Looper.loop(Looper.java:338)
+W/CondFlagRegistrar( 6944):     at android.os.HandlerThread.run(HandlerThr
+ead.java:85)                                                              W/CondFlagRegistrar( 6944): Caused by: arti: 17: API: Phenotype.API is not
+ available on this device. Connection failed with: ConnectionResult{statusCode=DEVELOPER_ERROR, resolution=null, message=null}                      W/CondFlagRegistrar( 6944):     at aspl.a(:com.google.android.gms@25083403
+8@25.08.34 (260800-739221510):15)                                         W/CondFlagRegistrar( 6944):     at arut.a(:com.google.android.gms@25083403
+8@25.08.34 (260800-739221510):1)                                          W/CondFlagRegistrar( 6944):     at aruq.c(:com.google.android.gms@25083403
+8@25.08.34 (260800-739221510):5)                                          W/CondFlagRegistrar( 6944):     ... 12 more
+I/upreet.rewardly( 6944): hiddenapi: Accessing hidden method Ldalvik/syste
+m/VMStack;->getStackClass2()Ljava/lang/Class; (runtime_flags=0, domain=core-platform, api=unsupported) from Lfjlv; (domain=app) using reflection: allowed                                                                     I/euco    ( 6944): Unable to retrieve flag snapshot for com.google.android
+.gms.providerinstaller#com.google.android.gms, using defaults.            I/upreet.rewardly( 6944): hiddenapi: Accessing hidden method Ljava/securit
+y/spec/ECParameterSpec;->getCurveName()Ljava/lang/String; (runtime_flags=0, domain=core-platform, api=unsupported) from Lcom/google/android/gms/org/conscrypt/Platform; (domain=app) using reflection: allowed                I/ProviderInstaller( 6944): Installed default security provider GmsCore_Op
+enSSL                                                                     I/upreet.rewardly( 6944): hiddenapi: Accessing hidden field Ljava/net/Sock
+et;->impl:Ljava/net/SocketImpl; (runtime_flags=0, domain=core-platform, api=unsupported) from Lcom/google/android/gms/org/conscrypt/Platform; (domain=app) using reflection: allowed                                          I/upreet.rewardly( 6944): hiddenapi: Accessing hidden method Ljava/securit
+y/spec/ECParameterSpec;->setCurveName(Ljava/lang/String;)V (runtime_flags=0, domain=core-platform, api=unsupported) from Lcom/google/android/gms/org/conscrypt/Platform; (domain=app) using reflection: allowed               E/GoogleApiManager( 6944): Failed to get service from broker. 
+E/GoogleApiManager( 6944): java.lang.SecurityException: Unknown calling pa
+ckage name 'com.google.android.gms'.                                      E/GoogleApiManager( 6944):      at android.os.Parcel.createExceptionOrNull
+(Parcel.java:3340)                                                        E/GoogleApiManager( 6944):      at android.os.Parcel.createException(Parce
+l.java:3324)                                                              E/GoogleApiManager( 6944):      at android.os.Parcel.readException(Parcel.
+java:3307)                                                                E/GoogleApiManager( 6944):      at android.os.Parcel.readException(Parcel.
+java:3249)                                                                E/GoogleApiManager( 6944):      at asrs.a(:com.google.android.gms@25083403
+8@25.08.34 (260800-739221510):36)                                         E/GoogleApiManager( 6944):      at aspz.z(:com.google.android.gms@25083403
+8@25.08.34 (260800-739221510):143)                                        E/GoogleApiManager( 6944):      at arxi.run(:com.google.android.gms@250834
+038@25.08.34 (260800-739221510):54)                                       E/GoogleApiManager( 6944):      at android.os.Handler.handleCallback(Handl
+er.java:995)                                                              E/GoogleApiManager( 6944):      at android.os.Handler.dispatchMessage(Hand
+ler.java:103)                                                             E/GoogleApiManager( 6944):      at bzmg.my(:com.google.android.gms@2508340
+38@25.08.34 (260800-739221510):1)                                         E/GoogleApiManager( 6944):      at bzmg.dispatchMessage(:com.google.androi
+d.gms@250834038@25.08.34 (260800-739221510):5)                            E/GoogleApiManager( 6944):      at android.os.Looper.loopOnce(Looper.java:
+248)                                                                      E/GoogleApiManager( 6944):      at android.os.Looper.loop(Looper.java:338)
+E/GoogleApiManager( 6944):      at android.os.HandlerThread.run(HandlerThr
+ead.java:85)                                                              
+══╡ EXCEPTION CAUGHT BY WIDGETS LIBRARY
+╞═══════════════════════════════════════════════════════════
+The following StateError was thrown building ReferralScreen(dirty,
+dependencies:
+[_InheritedProviderScope<UserDataProvider?>]):
+Bad state: field "referral_code" does not exist within the
+DocumentSnapshotPlatform
+
+The relevant error-causing widget was:
+  ReferralScreen
+  ReferralScreen:file:///home/user/myapp/lib/screens/home/home.dart:55:13
+
+When the exception was thrown, this was the stack:
+#0      DocumentSnapshotPlatform.get._findKeyValueInMap
+(package:cloud_firestore_platform_interface/src/platform_interface/platfor
+m_interface_document_snapshot.dart:92:7)
+#1      DocumentSnapshotPlatform.get._findComponent
+(package:cloud_firestore_platform_interface/src/platform_interface/platfor
+m_interface_document_snapshot.dart:110:23)
+#2      DocumentSnapshotPlatform.get
+(package:cloud_firestore_platform_interface/src/platform_interface/platfor
+m_interface_document_snapshot.dart:126:12)
+#3      _JsonDocumentSnapshot.get
+(package:cloud_firestore/src/document_snapshot.dart:92:48)
+#4      _JsonDocumentSnapshot.[]
+(package:cloud_firestore/src/document_snapshot.dart:96:40)
+#5      ReferralScreen.build
+(package:rewardly_app/screens/home/referral_screen.dart:57:34)
+#6      StatelessElement.build
+(package:flutter/src/widgets/framework.dart:5791:49)
+#7      ComponentElement.performRebuild
+(package:flutter/src/widgets/framework.dart:5723:15)
+#8      Element.rebuild
+(package:flutter/src/widgets/framework.dart:5435:7)
+#9      ComponentElement._firstBuild
+(package:flutter/src/widgets/framework.dart:5705:5)
+#10     ComponentElement.mount
+(package:flutter/src/widgets/framework.dart:5699:5)
+#11     Element.inflateWidget
+(package:flutter/src/widgets/framework.dart:4548:16)
+#12     Element.updateChild
+(package:flutter/src/widgets/framework.dart:3998:20)
+#13     ComponentElement.performRebuild
+(package:flutter/src/widgets/framework.dart:5747:16)
+#14     Element.rebuild
+(package:flutter/src/widgets/framework.dart:5435:7)
+#15     StatelessElement.update
+(package:flutter/src/widgets/framework.dart:5797:5)
+#16     Element.updateChild
+(package:flutter/src/widgets/framework.dart:3982:15)
+#17     ComponentElement.performRebuild
+(package:flutter/src/widgets/framework.dart:5747:16)
+#18     Element.rebuild
+(package:flutter/src/widgets/framework.dart:5435:7)
+#19     StatelessElement.update
+(package:flutter/src/widgets/framework.dart:5797:5)
+#20     Element.updateChild
+(package:flutter/src/widgets/framework.dart:3982:15)
+#21     ComponentElement.performRebuild
+(package:flutter/src/widgets/framework.dart:5747:16)
+#22     Element.rebuild
+(package:flutter/src/widgets/framework.dart:5435:7)
+#23     ProxyElement.update
+(package:flutter/src/widgets/framework.dart:6051:5)
+#24     Element.updateChild
+(package:flutter/src/widgets/framework.dart:3982:15)
+#25     ComponentElement.performRebuild
+(package:flutter/src/widgets/framework.dart:5747:16)
+#26     Element.rebuild
+(package:flutter/src/widgets/framework.dart:5435:7)
+#27     ProxyElement.update
+(package:flutter/src/widgets/framework.dart:6051:5)
+#28     Element.updateChild
+(package:flutter/src/widgets/framework.dart:3982:15)
+#29     Element.updateChildren
+(package:flutter/src/widgets/framework.dart:4139:32)
+#30     MultiChildRenderObjectElement.update
+(package:flutter/src/widgets/framework.dart:7202:17)
+#31     Element.updateChild
+(package:flutter/src/widgets/framework.dart:3982:15)
+#32     ComponentElement.performRebuild
+(package:flutter/src/widgets/framework.dart:5747:16)
+#33     Element.rebuild
+(package:flutter/src/widgets/framework.dart:5435:7)
+#34     ProxyElement.update
+(package:flutter/src/widgets/framework.dart:6051:5)
+#35     Element.updateChild
+(package:flutter/src/widgets/framework.dart:3982:15)
+#36     ComponentElement.performRebuild
+(package:flutter/src/widgets/framework.dart:5747:16)
+#37     StatefulElement.performRebuild
+(package:flutter/src/widgets/framework.dart:5884:11)
+#38     Element.rebuild
+(package:flutter/src/widgets/framework.dart:5435:7)
+#39     StatefulElement.update
+(package:flutter/src/widgets/framework.dart:5909:5)
+#40     Element.updateChild
+(package:flutter/src/widgets/framework.dart:3982:15)
+#41     ComponentElement.performRebuild
+(package:flutter/src/widgets/framework.dart:5747:16)
+#42     StatefulElement.performRebuild
+(package:flutter/src/widgets/framework.dart:5884:11)
+#43     Element.rebuild
+(package:flutter/src/widgets/framework.dart:5435:7)
+#44     StatefulElement.update
+(package:flutter/src/widgets/framework.dart:5909:5)
+#45     Element.updateChild
+(package:flutter/src/widgets/framework.dart:3982:15)
+#46     ComponentElement.performRebuild
+(package:flutter/src/widgets/framework.dart:5747:16)
+#47     Element.rebuild
+(package:flutter/src/widgets/framework.dart:5435:7)
+#48     ProxyElement.update
+(package:flutter/src/widgets/framework.dart:6051:5)
+#49     Element.updateChild
+(package:flutter/src/widgets/framework.dart:3982:15)
+#50     ComponentElement.performRebuild
+(package:flutter/src/widgets/framework.dart:5747:16)
+#51     StatefulElement.performRebuild
+(package:flutter/src/widgets/framework.dart:5884:11)
+#52     Element.rebuild
+(package:flutter/src/widgets/framework.dart:5435:7)
+#53     StatefulElement.update
+(package:flutter/src/widgets/framework.dart:5909:5)
+#54     Element.updateChild
+(package:flutter/src/widgets/framework.dart:3982:15)
+#55     SingleChildRenderObjectElement.update
+(package:flutter/src/widgets/framework.dart:7025:14)
+#56     Element.updateChild
+(package:flutter/src/widgets/framework.dart:3982:15)
+#57     ComponentElement.performRebuild
+(package:flutter/src/widgets/framework.dart:5747:16)
+#58     Element.rebuild
+(package:flutter/src/widgets/framework.dart:5435:7)
+#59     ProxyElement.update
+(package:flutter/src/widgets/framework.dart:6051:5)
+#60     Element.updateChild
+(package:flutter/src/widgets/framework.dart:3982:15)
+#61     SingleChildRenderObjectElement.update
+(package:flutter/src/widgets/framework.dart:7025:14)
+#62     Element.updateChild
+(package:flutter/src/widgets/framework.dart:3982:15)
+#63     ComponentElement.performRebuild
+(package:flutter/src/widgets/framework.dart:5747:16)
+#64     StatefulElement.performRebuild
+(package:flutter/src/widgets/framework.dart:5884:11)
+#65     Element.rebuild
+(package:flutter/src/widgets/framework.dart:5435:7)
+#66     StatefulElement.update
+(package:flutter/src/widgets/framework.dart:5909:5)
+#67     Element.updateChild
+(package:flutter/src/widgets/framework.dart:3982:15)
+#68     ComponentElement.performRebuild
+(package:flutter/src/widgets/framework.dart:5747:16)
+#69     StatefulElement.performRebuild
+(package:flutter/src/widgets/framework.dart:5884:11)
+#70     Element.rebuild
+(package:flutter/src/widgets/framework.dart:5435:7)
+#71     StatefulElement.update
+(package:flutter/src/widgets/framework.dart:5909:5)
+#72     Element.updateChild
+(package:flutter/src/widgets/framework.dart:3982:15)
+#73     ComponentElement.performRebuild
+(package:flutter/src/widgets/framework.dart:5747:16)
+#74     Element.rebuild
+(package:flutter/src/widgets/framework.dart:5435:7)
+#75     ProxyElement.update
+(package:flutter/src/widgets/framework.dart:6051:5)
+#76     Element.updateChild
+(package:flutter/src/widgets/framework.dart:3982:15)
+#77     ComponentElement.performRebuild
+(package:flutter/src/widgets/framework.dart:5747:16)
+#78     Element.rebuild
+(package:flutter/src/widgets/framework.dart:5435:7)
+#79     ProxyElement.update
+(package:flutter/src/widgets/framework.dart:6051:5)
+#80     Element.updateChild
+(package:flutter/src/widgets/framework.dart:3982:15)
+#81     ComponentElement.performRebuild
+(package:flutter/src/widgets/framework.dart:5747:16)
+#82     Element.rebuild
+(package:flutter/src/widgets/framework.dart:5435:7)
+#83     ProxyElement.update
+(package:flutter/src/widgets/framework.dart:6051:5)
+#84     Element.updateChild
+(package:flutter/src/widgets/framework.dart:3982:15)
+#85     ComponentElement.performRebuild
+(package:flutter/src/widgets/framework.dart:5747:16)
+#86     StatefulElement.performRebuild
+(package:flutter/src/widgets/framework.dart:5884:11)
+#87     Element.rebuild
+(package:flutter/src/widgets/framework.dart:5435:7)
+#88     StatefulElement.update
+(package:flutter/src/widgets/framework.dart:5909:5)
+#89     Element.updateChild
+(package:flutter/src/widgets/framework.dart:3982:15)
+#90     ComponentElement.performRebuild
+(package:flutter/src/widgets/framework.dart:5747:16)
+#91     Element.rebuild
+(package:flutter/src/widgets/framework.dart:5435:7)
+#92     ProxyElement.update
+(package:flutter/src/widgets/framework.dart:6051:5)
+#93     Element.updateChild
+(package:flutter/src/widgets/framework.dart:3982:15)
+#94     ComponentElement.performRebuild
+(package:flutter/src/widgets/framework.dart:5747:16)
+#95     StatefulElement.performRebuild
+(package:flutter/src/widgets/framework.dart:5884:11)
+#96     Element.rebuild
+(package:flutter/src/widgets/framework.dart:5435:7)
+#97     StatefulElement.update
+(package:flutter/src/widgets/framework.dart:5909:5)
+#98     Element.updateChild
+(package:flutter/src/widgets/framework.dart:3982:15)
+#99     ComponentElement.performRebuild
+(package:flutter/src/widgets/framework.dart:5747:16)
+#100    StatefulElement.performRebuild
+(package:flutter/src/widgets/framework.dart:5884:11)
+#101    Element.rebuild
+(package:flutter/src/widgets/framework.dart:5435:7)
+#102    BuildScope._tryRebuild
+(package:flutter/src/widgets/framework.dart:2695:15)
+#103    BuildScope._flushDirtyElements
+(package:flutter/src/widgets/framework.dart:2752:11)
+#104    BuildOwner.buildScope
+(package:flutter/src/widgets/framework.dart:3056:18)
+#105    WidgetsBinding.drawFrame
+(package:flutter/src/widgets/binding.dart:1259:21)
+#106    RendererBinding._handlePersistentFrameCallback
+(package:flutter/src/rendering/binding.dart:495:5)
+#107    SchedulerBinding._invokeFrameCallback
+(package:flutter/src/scheduler/binding.dart:1434:15)
+#108    SchedulerBinding.handleDrawFrame
+(package:flutter/src/scheduler/binding.dart:1347:9)
+#109    SchedulerBinding._handleDrawFrame
+(package:flutter/src/scheduler/binding.dart:1200:5)
+#110    _invoke (dart:ui/hooks.dart:330:13)
+#111    PlatformDispatcher._drawFrame
+(dart:ui/platform_dispatcher.dart:444:5)
+#112    _drawFrame (dart:ui/hooks.dart:302:31)
+
+══════════════════════════════════════════════════════════════════════════
+══════════════════════════
+
+D/GASS    ( 6944): Clearcut logging disabled
+W/HWUI    ( 6944): Image decoding logging dropped!
+W/HWUI    ( 6944): Image decoding logging dropped!
+I/Ads     ( 6944): This request is sent from a test device.
+D/zzavr   ( 6944): File /data/user/0/com.supreet.rewardly/cache/1731536186
+208.dex not found. No need for deletion                                   I/PlatformViewsController( 6944): Hosting view in view hierarchy for platf
+orm view: 0                                                               I/PlatformViewsController( 6944): PlatformView is using SurfaceProducer ba
+ckend                                                                     I/upreet.rewardly( 6944): Waiting for a blocking GC ClassLinker
+I/upreet.rewardly( 6944): Waiting for a blocking GC ClassLinker
+I/upreet.rewardly( 6944): Waiting for a blocking GC ClassLinker
+I/upreet.rewardly( 6944): Waiting for a blocking GC ClassLinker
+I/upreet.rewardly( 6944): Waiting for a blocking GC ClassLinker
+I/upreet.rewardly( 6944): Waiting for a blocking GC ClassLinker
+I/upreet.rewardly( 6944): Waiting for a blocking GC ClassLinker
+I/upreet.rewardly( 6944): Waiting for a blocking GC ClassLinker
+I/upreet.rewardly( 6944): Waiting for a blocking GC ClassLinker
+I/upreet.rewardly( 6944): Waiting for a blocking GC ClassLinker
+I/upreet.rewardly( 6944): Waiting for a blocking GC ClassLinker
+I/upreet.rewardly( 6944): Waiting for a blocking GC ClassLinker
+I/upreet.rewardly( 6944): Waiting for a blocking GC ClassLinker
+I/upreet.rewardly( 6944): Waiting for a blocking GC ClassLinker
+I/upreet.rewardly( 6944): Waiting for a blocking GC ClassLinker
+I/upreet.rewardly( 6944): Waiting for a blocking GC ClassLinker
+I/upreet.rewardly( 6944): Waiting for a blocking GC ClassLinker
+I/upreet.rewardly( 6944): Waiting for a blocking GC ClassLinker
+I/upreet.rewardly( 6944): Waiting for a blocking GC ClassLinker
+I/upreet.rewardly( 6944): Waiting for a blocking GC ClassLinker
+I/upreet.rewardly( 6944): Waiting for a blocking GC ClassLinker
+I/upreet.rewardly( 6944): Waiting for a blocking GC ClassLinker
+I/upreet.rewardly( 6944): Waiting for a blocking GC ClassLinker
+I/upreet.rewardly( 6944): Waiting for a blocking GC ClassLinker
+I/upreet.rewardly( 6944): Waiting for a blocking GC ClassLinker
+I/upreet.rewardly( 6944): Waiting for a blocking GC ClassLinker
+I/upreet.rewardly( 6944): Waiting for a blocking GC ClassLinker
+D/GASS    ( 6944): Clearcut logging disabled
+I/upreet.rewardly( 6944): Waiting for a blocking GC ClassLinker
+I/upreet.rewardly( 6944): Waiting for a blocking GC ClassLinker
+I/upreet.rewardly( 6944): Background concurrent mark compact GC freed 5485
+KB AllocSpace bytes, 7(1176KB) LOS objects, 49% free, 11MB/23MB, paused 2.905ms,5.321ms total 210.586ms                                             I/upreet.rewardly( 6944): WaitForGcToComplete blocked ClassLinker on Backg
+round for 211.258ms                                                       I/upreet.rewardly( 6944): WaitForGcToComplete blocked ClassLinker on Class
+Linker for 201.169ms                                                      I/upreet.rewardly( 6944): WaitForGcToComplete blocked ClassLinker on Class
+Linker for 200.746ms                                                      I/upreet.rewardly( 6944): WaitForGcToComplete blocked ClassLinker on Class
+Linker for 200.747ms                                                      I/upreet.rewardly( 6944): WaitForGcToComplete blocked ClassLinker on Class
+Linker for 200.485ms                                                      I/upreet.rewardly( 6944): WaitForGcToComplete blocked ClassLinker on Class
+Linker for 199.246ms                                                      I/upreet.rewardly( 6944): WaitForGcToComplete blocked ClassLinker on Class
+Linker for 212.033ms                                                      I/upreet.rewardly( 6944): WaitForGcToComplete blocked ClassLinker on Class
+Linker for 201.750ms                                                      I/upreet.rewardly( 6944): WaitForGcToComplete blocked ClassLinker on Class
+Linker for 191.768ms                                                      I/upreet.rewardly( 6944): Waiting for a blocking GC ClassLinker
+I/upreet.rewardly( 6944): Waiting for a blocking GC ClassLinker
+I/upreet.rewardly( 6944): WaitForGcToComplete blocked ClassLinker on Class
+Linker for 184.136ms                                                      I/upreet.rewardly( 6944): WaitForGcToComplete blocked ClassLinker on Class
+Linker for 185.202ms                                                      I/upreet.rewardly( 6944): WaitForGcToComplete blocked ClassLinker on Class
+Linker for 179.399ms                                                      I/upreet.rewardly( 6944): WaitForGcToComplete blocked ClassLinker on Class
+Linker for 175.407ms                                                      I/upreet.rewardly( 6944): WaitForGcToComplete blocked ClassLinker on Class
+Linker for 192.977ms                                                      I/upreet.rewardly( 6944): WaitForGcToComplete blocked ClassLinker on Class
+Linker for 204.003ms                                                      I/upreet.rewardly( 6944): WaitForGcToComplete blocked ClassLinker on Class
+Linker for 186.044ms                                                      I/upreet.rewardly( 6944): WaitForGcToComplete blocked ClassLinker on Class
+Linker for 204.814ms                                                      I/upreet.rewardly( 6944): WaitForGcToComplete blocked ClassLinker on Class
+Linker for 175.616ms                                                      I/upreet.rewardly( 6944): WaitForGcToComplete blocked ClassLinker on Class
+Linker for 202.041ms                                                      I/upreet.rewardly( 6944): WaitForGcToComplete blocked ClassLinker on Class
+Linker for 180.590ms                                                      I/upreet.rewardly( 6944): WaitForGcToComplete blocked ClassLinker on Class
+Linker for 194.584ms                                                      I/upreet.rewardly( 6944): WaitForGcToComplete blocked ClassLinker on Class
+Linker for 180.128ms                                                      I/upreet.rewardly( 6944): WaitForGcToComplete blocked ClassLinker on Class
+Linker for 188.298ms                                                      I/upreet.rewardly( 6944): WaitForGcToComplete blocked ClassLinker on Class
+Linker for 199.165ms                                                      I/upreet.rewardly( 6944): WaitForGcToComplete blocked ClassLinker on Class
+Linker for 201.883ms                                                      I/upreet.rewardly( 6944): WaitForGcToComplete blocked ClassLinker on Class
+Linker for 188.528ms                                                      I/upreet.rewardly( 6944): WaitForGcToComplete blocked ClassLinker on Class
+Linker for 206.197ms                                                      I/upreet.rewardly( 6944): WaitForGcToComplete blocked ClassLinker on Class
+Linker for 180.860ms                                                      I/upreet.rewardly( 6944): Waiting for a blocking GC ClassLinker
+I/upreet.rewardly( 6944): WaitForGcToComplete blocked ClassLinker on Class
+Linker for 195.694ms                                                      D/nativeloader( 6944): Configuring clns-13 for other apk . target_sdk_vers
+ion=36, uses_libraries=ALL, library_path=, permitted_path=/data:/mnt/expand                                                                         W/Ads     ( 6944): Invoke Firebase method getInstance error.
+W/Ads     ( 6944): The Google Mobile Ads SDK will not integrate with Fireb
+ase. Admob/Firebase integration requires the latest Firebase SDK jar, but Firebase SDK is either missing or out of date                             I/Ads     ( 6944): This request is sent from a test device.
+W/pool-24-thread-( 6944): type=1400 audit(0.0:61): avc:  granted  { execut
+e } for  path="/data/data/com.supreet.rewardly/app_pccache/6/4DE70CEDE79348D5727B1A7B2A85FC1D15BD55F3/pcam.jar" dev="dm-55" ino=377017 scontext=u:r:untrusted_app:s0:c217,c256,c512,c768 tcontext=u:object_r:app_data_file:s0:c217,c256,c512,c768 tclass=file app=com.supreet.rewardly                  D/nativeloader( 6944): Load /data/user/0/com.supreet.rewardly/app_pccache/
+6/4DE70CEDE79348D5727B1A7B2A85FC1D15BD55F3/pcam.jar!/libd5E463D07A51F.so using isolated ns clns-13 (caller=/data/user/0/com.supreet.rewardly/app_pccache/6/4DE70CEDE79348D5727B1A7B2A85FC1D15BD55F3/pcam.jar): ok             W/ConnectionStatusConfig( 6944): Dynamic lookup for intent failed for acti
+on: com.google.android.gms.ads.service.START                              W/Ads     ( 6944): Not retrying to fetch app settings
+I/Choreographer( 6944): Skipped 112 frames!  The application may be doing 
+too much work on its main thread.                                         I/Choreographer( 6944): Skipped 35 frames!  The application may be doing t
+oo much work on its main thread.                                          E/flutter ( 6944): [ERROR:flutter/runtime/dart_vm_initializer.cc(40)] Unha
+ndled Exception: Bad state: field "lastSpinWheelDate" does not exist within the DocumentSnapshotPlatform                                            E/flutter ( 6944): #0      DocumentSnapshotPlatform.get._findKeyValueInMap
+ (package:cloud_firestore_platform_interface/src/platform_interface/platform_interface_document_snapshot.dart:92:7)                                 E/flutter ( 6944): #1      DocumentSnapshotPlatform.get._findComponent (pa
+ckage:cloud_firestore_platform_interface/src/platform_interface/platform_interface_document_snapshot.dart:110:23)                                   E/flutter ( 6944): #2      DocumentSnapshotPlatform.get (package:cloud_fir
+estore_platform_interface/src/platform_interface/platform_interface_document_snapshot.dart:126:12)                                                  E/flutter ( 6944): #3      _JsonDocumentSnapshot.get (package:cloud_firest
+ore/src/document_snapshot.dart:92:48)                                     E/flutter ( 6944): #4      _JsonDocumentSnapshot.[] (package:cloud_firesto
+re/src/document_snapshot.dart:96:40)                                      E/flutter ( 6944): #5      UserService.resetSpinWheelDailyCounts (package:
+rewardly_app/user_service.dart:54:39)                                     E/flutter ( 6944): <asynchronous suspension>
+E/flutter ( 6944): #6      _SpinWheelGameScreenState._updateSpinState (pac
+kage:rewardly_app/screens/home/spin_wheel_game_screen.dart:103:5)         E/flutter ( 6944): <asynchronous suspension>
+E/flutter ( 6944): 
+I/Ads     ( 6944): Ad failed to load : 3
+I/Ads     ( 6944): This request is sent from a test device.
+I/Ads     ( 6944): Ad failed to load : 3
+I/Ads     ( 6944): This request is sent from a test device.
+W/Ads     ( 6944): Not retrying to fetch app settings
+I/upreet.rewardly( 6944): Background concurrent mark compact GC freed 5723
+KB AllocSpace bytes, 53(9192KB) LOS objects, 49% free, 11MB/22MB, paused 906us,3.404ms total 182.451ms                                              I/Ads     ( 6944): Ad failed to load : 3
+I/Ads     ( 6944): Ad failed to load : 3
+I/Ads     ( 6944): This request is sent from a test device.
+W/Ads     ( 6944): Not retrying to fetch app settings
+I/Ads     ( 6944): This request is sent from a test device.
+W/Ads     ( 6944): Not retrying to fetch app settings
+I/Ads     ( 6944): Ad failed to load : 3
+I/Choreographer( 6944): Skipped 30 frames!  The application may be doing t
+oo much work on its main thread.                                          W/RemoteInputConnectionImpl( 6944): requestCursorUpdates on inactive Input
+Connection                                                                I/Ads     ( 6944): Ad failed to load : 3
+I/Ads     ( 6944): This request is sent from a test device.
+W/Ads     ( 6944): Not retrying to fetch app settings
+I/Ads     ( 6944): This request is sent from a test device.
+W/Ads     ( 6944): Not retrying to fetch app settings
+I/Ads     ( 6944): This request is sent from a test device.
+W/Ads     ( 6944): Not retrying to fetch app settings
+I/Ads     ( 6944): Ad failed to load : 3
+I/Ads     ( 6944): Ad failed to load : 3
+I/Ads     ( 6944): Ad failed to load : 3
+W/ImageReader_JNI( 6944): Unable to acquire a buffer item, very likely cli
+ent tried to acquire more than maxImages buffers                          W/ImageReader_JNI( 6944): Unable to acquire a buffer item, very likely cli
+ent tried to acquire more than maxImages buffers                          W/ImageReader_JNI( 6944): Unable to acquire a buffer item, very likely cli
+ent tried to acquire more than maxImages buffers                          Another exception was thrown: Looking up a deactivated widget's ancestor
+is unsafe.
+W/HWUI    ( 6944): Image decoding logging dropped!
+W/HWUI    ( 6944): Image decoding logging dropped!
+I/Ads     ( 6944): This request is sent from a test device.
+I/PlatformViewsController( 6944): Hosting view in view hierarchy for platf
+orm view: 1                                                               I/PlatformViewsController( 6944): PlatformView is using SurfaceProducer ba
+ckend                                                                     I/Ads     ( 6944): This request is sent from a test device.
+I/Ads     ( 6944): This request is sent from a test device.
+W/Ads     ( 6944): Not retrying to fetch app settings
+W/ConnectionStatusConfig( 6944): Dynamic lookup for intent failed for acti
+on: com.google.android.gms.ads.service.START                              W/Ads     ( 6944): Not retrying to fetch app settings
+I/upreet.rewardly( 6944): Background concurrent mark compact GC freed 6173
+KB AllocSpace bytes, 60(5936KB) LOS objects, 49% free, 15MB/30MB, paused 1.533ms,4.970ms total 112.384ms                                            I/Choreographer( 6944): Skipped 30 frames!  The application may be doing t
+oo much work on its main thread.                                          I/Ads     ( 6944): Ad failed to load : 3
+I/Ads     ( 6944): Ad failed to load : 3
+I/Choreographer( 6944): Skipped 36 frames!  The application may be doing t
+oo much work on its main thread.                                          I/chromium( 6944): [INFO:CONSOLE(222)] "Uncaught ReferenceError: Stats is 
+not defined", source: file:///android_asset/flutter_assets/assets/web/tunnel_runner_game.html (222)                                                 I/Ads     ( 6944): JS: The jsLoaded GMSG has been sent (https://googleads.
+g.doubleclick.net/mads/static/mad/sdk/native/production/sdk-core-v40-impl.html:984)                                                                 I/chromium( 6944): [INFO:CONSOLE(984)] "The jsLoaded GMSG has been sent", 
+source: https://googleads.g.doubleclick.net/mads/static/mad/sdk/native/production/sdk-core-v40-impl.html (984)                                      I/PlatformViewsController( 6944): Hosting view in view hierarchy for platf
+orm view: 2                                                               I/PlatformViewsController( 6944): PlatformView is using SurfaceProducer ba
+ckend                                                                     I/Choreographer( 6944): Skipped 41 frames!  The application may be doing t
+oo much work on its main thread.                                          I/chromium( 6944): [INFO:CONSOLE(524)] "// DEBUG: Game state reset.", sour
+ce: file:///android_asset/flutter_assets/assets/web/tunnel_runner_game.html (524)                                                                   I/Ads     ( 6944): This request is sent from a test device.
+W/ConnectionStatusConfig( 6944): Dynamic lookup for intent failed for acti
+on: com.google.android.gms.ads.service.START                              I/Ads     ( 6944): Ad failed to load : 3
+Lost connection to device.

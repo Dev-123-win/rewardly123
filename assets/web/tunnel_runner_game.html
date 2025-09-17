@@ -115,10 +115,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three-addons@1.0.0/loaders/FontLoader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three-addons@1.0.0/geometries/TextGeometry.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/r16/stats.min.js"></script> <!-- DEBUG: stats.js for performance monitoring -->
     <script>
         // --- Game State Variables ---
-        let scene, camera, renderer, stats; // DEBUG: Added stats
+        let scene, camera, renderer;
         let tunnelSegments = [];
         let obstacles = [];
         let coins = [];
@@ -218,11 +217,6 @@
             const cameraHelper = new THREE.CameraHelper(camera); // DEBUG: Visualize camera frustum
             scene.add(cameraHelper); // DEBUG
 
-            // DEBUG: Initialize stats.js
-            stats = new Stats(); // DEBUG
-            stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom // DEBUG
-            document.body.appendChild(stats.dom); // DEBUG
-
             console.log('// DEBUG: Game initialized.'); // DEBUG
             showMenu();
         }
@@ -238,14 +232,10 @@
         function animate() {
             requestAnimationFrame(animate);
 
-            stats.begin(); // DEBUG: Start stats monitoring
-
             if (isGameStarted && !isGameOver) {
                 updateGame();
             }
             renderer.render(scene, camera);
-
-            stats.end(); // DEBUG: End stats monitoring
         }
 
         function updateGame() {
